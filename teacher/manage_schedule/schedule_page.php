@@ -15,50 +15,67 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- bootstrap core css -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
     html,body{
     height: 100%;
     font-family: 'Ubuntu', sans-serif;
-}
+    }
 
-.mynav{
-    color: #fff;
-}
+    .mynav{
+        color: #fff;
+    }
 
-.mynav li a {
-    color: #fff;
-    text-decoration: none;
-    width: 100%;
-    display: block;
-    border-radius: 5px;
-    padding: 8px 5px;
-}
+    .mynav li a {
+        color: #fff;
+        text-decoration: none;
+        width: 100%;
+        display: block;
+        border-radius: 5px;
+        padding: 8px 5px;
+    }
 
-.mynav li a.active{
-    background: rgba(255,255,255,0.2);
-}
+    .mynav li a.active{
+        background: rgba(255,255,255,0.2);
+    }
 
-.mynav li a:hover{
-    background: rgba(255,255,255,0.2);
-}
+    .mynav li a:hover{
+        background: rgba(255,255,255,0.2);
+    }
 
-.mynav li a i{
-    width: 25px;
-    text-align: center;
-}
+    .mynav li a i{
+        width: 25px;
+        text-align: center;
+    }
 
-.notification-badge{
-    background-color: rgba(255,255,255,0.7);
-    float: right;
-    color: #222;
-    font-size: 14px;
-    padding: 0px 8px;
-    border-radius: 2px;
-}
+    .notification-badge{
+        background-color: rgba(255,255,255,0.7);
+        float: right;
+        color: #222;
+        font-size: 14px;
+        padding: 0px 8px;
+        border-radius: 2px;
+    }
 </style>
 <body>
   <div id='calendar'></div>
+  <!-- Modal -->
+<div class="modal fade" id="calendarDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div style="max-width: 800px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Chi tiết lịch</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <!-- modal body -->
+            <div class="schedule-modal-body">
+                        
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 
@@ -74,7 +91,7 @@
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         initialDate: '<?=date('Y-m-d')?>',
-        height: 625,
+        height: 600,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
@@ -83,29 +100,28 @@
         selectable: true,
         selectHelper: true,
         dayMaxEvents: true,
-        // eventClick: function(calEvent, jsEvent, view) {  
-        //   $.ajax({
-        //     url: "calendar/calendar_details.php",
-        //     method: 'post',
-        //     data: {
-        //       class_name: calEvent.event.extendedProps.class_name,
-        //       day_name: calEvent.event.extendedProps.day_name,
-        //       lesson_name: calEvent.event.extendedProps.lesson_name,
-        //       subject_name: calEvent.event.extendedProps.subject_name,
-        //       teacher_name: calEvent.event.extendedProps.teacher_name,
-        //       status: calEvent.event.extendedProps.status,
-        //       start_date: calEvent.event.extendedProps.start_date,
-        //       end_date: calEvent.event.extendedProps.end_date,
-        //       start_time: calEvent.event.extendedProps.start_time,
-        //       end_time: calEvent.event.extendedProps.end_time,
-        //     },
-        //     success: function(result) {
-        //       myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
-        //       myModal.show();
-        //       $(".calendar-modal-body").html(result);
-        //     }
-        //   })
-        // },
+        eventClick: function(calEvent, jsEvent, view) {  
+          $.ajax({
+            url: "manage_schedule/schedule_details.php",
+            method: 'post',
+            data: {
+              class_name: calEvent.event.extendedProps.class_name,
+              day_name: calEvent.event.extendedProps.day_name,
+              lesson_name: calEvent.event.extendedProps.lesson_name,
+              subject_name: calEvent.event.extendedProps.subject_name,
+              status: calEvent.event.extendedProps.status,
+              start_date: calEvent.event.extendedProps.start_date,
+              end_date: calEvent.event.extendedProps.end_date,
+              start_time: calEvent.event.extendedProps.start_time,
+              end_time: calEvent.event.extendedProps.end_time,
+            },
+            success: function(result) {
+              myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
+              myModal.show();
+              $(".schedule-modal-body").html(result);
+            }
+          })
+        },
       });
 
       result.forEach(function(eventData) {
@@ -122,7 +138,7 @@
           var startDateTime = moment(currentDate).set({ 'hour': startHour, 'minute': startMinute });
           var endDateTime = moment(currentDate).set({ 'hour': endHour, 'minute': endMinute });
           calendar.addEvent({
-            title: eventData.lesson_name,
+            title: eventData.class_name,
             start: startDateTime.format(),
             end: endDateTime.format(),
             color: eventData.status == '0' ? '#0099FF' : '#33CC00',

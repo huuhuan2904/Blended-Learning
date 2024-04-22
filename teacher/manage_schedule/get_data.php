@@ -30,6 +30,9 @@ if(!empty($_GET['type']) && $_GET['type'] == 'list'){
                             foreach ($row3 as $key => $value) {
                                 $Ass_array[count($Ass_array) - 1][$key] = $value;
                             }
+                            foreach ($row as $key => $value) {
+                                $Ass_array[count($Ass_array) - 1][$key] = $value;
+                            }
                         }
                     }
                 }
