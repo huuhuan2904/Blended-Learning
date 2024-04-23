@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
@@ -18,47 +18,7 @@
     <!-- bootstrap core css -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<style>
-    html,body{
-    height: 100%;
-    font-family: 'Ubuntu', sans-serif;
-    }
 
-    .mynav{
-        color: #fff;
-    }
-
-    .mynav li a {
-        color: #fff;
-        text-decoration: none;
-        width: 100%;
-        display: block;
-        border-radius: 5px;
-        padding: 8px 5px;
-    }
-
-    .mynav li a.active{
-        background: rgba(255,255,255,0.2);
-    }
-
-    .mynav li a:hover{
-        background: rgba(255,255,255,0.2);
-    }
-
-    .mynav li a i{
-        width: 25px;
-        text-align: center;
-    }
-
-    .notification-badge{
-        background-color: rgba(255,255,255,0.7);
-        float: right;
-        color: #222;
-        font-size: 14px;
-        padding: 0px 8px;
-        border-radius: 2px;
-    }
-</style>
 <body>
   <div id='calendar'></div>
   <!-- Modal -->

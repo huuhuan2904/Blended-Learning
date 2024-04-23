@@ -2,9 +2,19 @@
     $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
     $Teacher_query = "  SELECT teachers.*, logins.*
                         FROM teachers 
-                        join logins on teachers.login_id  = logins.id
+                        join logins on teachers.login_id = logins.id
                         where teachers.id = ".$_SESSION['teacher_id']."";
+    $Subject_query = "  SELECT assignment.subject_id, subjects.name
+                        FROM assignment 
+                        join subjects on assignment.subject_id = subjects.id
+                        where assignment.teacher_id = ".$_SESSION['teacher_id']."";     
+    $Class_query = "    SELECT class_students.class_id, class.class_name
+                        FROM class_students 
+                        join class on class_students.class_id = class.id
+                        where class_students.teacher_id = ".$_SESSION['teacher_id']."";                 
     $Teacher_result = mysqli_query($conn, $Teacher_query);
+    $Subject_result = mysqli_query($conn, $Subject_query);
+    $Class_result = mysqli_query($conn, $Class_query);  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +40,7 @@
 </head>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
-        *{
+        /* *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -42,7 +52,7 @@
             align-items: center;
             justify-content: center;
             background: #4070f4;
-        }
+        } */
         .container{
             position: relative;
             border-radius: 6px;
@@ -196,12 +206,12 @@
 </style>
 <body>
     <div class="container" style="max-width: 2140px;">
-        <form action="teacher/" method="POST">
-            <?php 
-                foreach($Teacher_result as $row){
-            ?>
+        <form action="profile/edit_profile.php" method="POST">
             <div class="form first">
                 <div class="fields">
+                    <?php 
+                        foreach($Teacher_result as $row){
+                    ?>
                     <div class="input-field">
                         <label>Họ và tên</label>
                         <input value="<?php echo $row['name'] ?>" name="name" id="name" type="text"
@@ -240,12 +250,30 @@
                         <input value="<?php echo $row['password'] ?>" name="password" id="password" type="text"
                             placeholder="Nhập mật khẩu" required>
                     </div>
+                    <?php }?>
+                    <!-- subject -->
+                    <?php 
+                        foreach($Subject_result as $row){
+                    ?>
+                    <div class="input-field">
+                        <label>Môn dạy</label>
+                        <input disabled value="<?php echo $row['name'] ?>" type="text">
+                    </div>
+                    <?php }?>   
+                    <!-- class  -->
+                    <?php 
+                        foreach($Class_result as $row){
+                    ?>
+                    <div class="input-field">
+                        <label>Lớp chủ nhiệm</label>
+                        <input disabled value="<?php echo $row['class_name'] ?>" type="text">
+                    </div>
+                    <?php break; }?>  
                 </div>
                 <div style="text-align: right" class="right-button">
                     <button id="submit" class="submit" style="float: right"><i class="fa-solid fa-check"></i></button>
-                </div>
+                </div>    
             </div>
-            <?php }?>
         </form>
     </div>
 </body>

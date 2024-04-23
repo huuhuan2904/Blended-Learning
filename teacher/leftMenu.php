@@ -10,8 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white offcanvas-md offcanvas-start" style="width: 280px;background-color: rgba(var(--bs-success-rgb) !important">
@@ -26,29 +27,32 @@
                         Lịch dạy của tôi
                     </a>
                 </li>
-                <li class="nav-item mb-1">
-                    <a href="#" class="">
-                        <i class="fa-brands fa-leanpub"></i>
-                        Khóa học
-                        <!-- <span class="notification-badge">5</span> -->
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="fa-solid fa-people-group"></i>
+                        <span>Lớp học</span>
+                        <div style="float: right"><i class="fa-solid fa-caret-down"></i></div>
                     </a>
+                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" style="padding-left: 7px">
+                        <li class="sidebar-item">
+                            <a href="index.php?page=teaching_class" class="sidebar-link" style="font-size:14px"><i class="fa-solid fa-plus"></i>Lớp học giảng dạy</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="index.php?page=homeroom_teacher" class="sidebar-link" style="font-size:14px"><i class="fa-solid fa-plus"></i>Lớp học chủ nhiệm</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item mb-1">
                     <a href="index.php?page=personal_inf" class="">
-                        <i class="fa-solid fa-chalkboard-user"></i>
+                        <i class="fa-solid fa-user"></i>
                         Thông tin cá nhân
                     </a>
                 </li>
                 <li class="nav-item mb-1">
                     <a href="#" class="">
-                        <i class="fa-solid fa-star"></i>
-                        Saved Reports
-                    </a>
-                </li>
-                <li class="nav-item mb-1">
-                    <a href="#" class="">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        Orders
+                        <i class="fa-brands fa-leanpub"></i>
+                        Khóa học
                     </a>
                 </li>
                 <li class="nav-item mb-1">

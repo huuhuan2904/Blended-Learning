@@ -105,6 +105,22 @@
                                             echo 'Error: File not found';
                                         }
                                         break;
+                                    case 'teaching_class':
+                                        $path = "class_management/".$_GET["page"].".php";
+                                        if (file_exists($path)) {
+                                            include($path);
+                                        } else {
+                                            echo 'Error: File not found';
+                                        }
+                                        break;
+                                    case 'homeroom_teacher':
+                                        $path = "class_management/".$_GET["page"].".php";
+                                        if (file_exists($path)) {
+                                            include($path);
+                                        } else {
+                                            echo 'Error: File not found';
+                                        }
+                                        break;
                                     default:
                                         echo 'Error: Invalid page';
                                         break;

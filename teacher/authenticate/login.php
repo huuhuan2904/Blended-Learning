@@ -24,6 +24,7 @@ if(isset($_POST['submit'])) {
             $login_record = mysqli_fetch_assoc($fetch_user_result);
 
             $login_id = $login_record['id'];//lưu login id để lấy teacher inf
+            $_SESSION['login_id'] = $login_record['id'];
             $_SESSION['teacher_email'] = $login_record['email'];
 
             $teacher_result = mysqli_query($conn, "SELECT * FROM teachers WHERE login_id='$login_id'");
