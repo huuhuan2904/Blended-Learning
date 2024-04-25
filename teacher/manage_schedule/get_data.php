@@ -21,7 +21,7 @@ if(!empty($_GET['type']) && $_GET['type'] == 'list'){
             if(mysqli_num_rows($Day_ass_result) > 0) {
                 while($row2 = $Day_ass_result->fetch_assoc()){//loop lấy các ngày trong tuần dạy
                     if($row2['dayAss_id']){
-                        $Lesson_day = "SELECT lesson_day.status, lessons.name as lesson_name, lessons.start_time, lessons.end_time
+                        $Lesson_day = "SELECT lesson_day.id as lessonDay_id, lesson_day.status, lessons.name as lesson_name, lessons.start_time, lessons.end_time
                                     from lesson_day
                                     join lessons on lesson_day.lesson_id  = lessons.id where days_ass_id = ".$row2['dayAss_id']."";
                         $Lesson_day_result = mysqli_query($conn, $Lesson_day);

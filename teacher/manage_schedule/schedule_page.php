@@ -17,25 +17,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- bootstrap core css -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
 </head>
 
 <body>
   <div id='calendar'></div>
   <!-- Modal -->
-<div class="modal fade" id="calendarDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div style="max-width: 800px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel">Chi tiết lịch</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <!-- modal body -->
-            <div class="schedule-modal-body">
-                        
-            </div>
-        </div>
-    </div>
-</div>
+  <div class="modal fade" id="calendarDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div style="max-width: 800px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="myModalLabel">Chi tiết lịch</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <!-- modal body -->
+              <div class="schedule-modal-body">
+                          
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="addHomework" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div style="max-width: 800px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="myModalLabel">Thêm học liệu</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <!-- modal body -->
+              <div class="add-homework-body">
+                          
+              </div>
+          </div>
+      </div>
+  </div>
 </body>
 </html>
 
@@ -74,6 +89,7 @@
               end_date: calEvent.event.extendedProps.end_date,
               start_time: calEvent.event.extendedProps.start_time,
               end_time: calEvent.event.extendedProps.end_time,
+              lesson_day_id: calEvent.event.extendedProps.lessonDay_id,
             },
             success: function(result) {
               myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
@@ -125,6 +141,21 @@
     }
   });
 }
-
 getEvent();
+</script>
+<script>
+  function addHomeworkModal(id) {
+    $.ajax({
+      url: "manage_schedule/add_homework_modal.php",
+      method: 'post',
+      data: {
+        lesson_day_id: id
+      },
+      success: function(result) {
+        $(".add-homework-body").html(result);
+        $("#calendarDetails").modal("hide");
+        $("#addHomework").modal("show");
+      }
+    });
+  }
 </script>

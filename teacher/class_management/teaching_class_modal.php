@@ -19,7 +19,6 @@
                             <th> Địa chỉ </th>
                             <th> Số điện thoại </th>
                             <th> Dân tộc </th>
-                            <th> Email </th>
                         </tr>';
                             if(mysqli_num_rows($Assignment_result) > 0){
                                 foreach($Assignment_result as $row)
