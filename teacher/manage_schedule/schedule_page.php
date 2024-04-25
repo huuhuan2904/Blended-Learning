@@ -76,6 +76,8 @@
         selectHelper: true,
         dayMaxEvents: true,
         eventClick: function(calEvent, jsEvent, view) {  
+          var selectedDate = calEvent.event.start;
+          var formattedDate = moment(selectedDate).format('YYYY-MM-DD');
           $.ajax({
             url: "manage_schedule/schedule_details.php",
             method: 'post',
@@ -90,6 +92,7 @@
               start_time: calEvent.event.extendedProps.start_time,
               end_time: calEvent.event.extendedProps.end_time,
               lesson_day_id: calEvent.event.extendedProps.lessonDay_id,
+              selected_date: formattedDate,
             },
             success: function(result) {
               myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
@@ -144,12 +147,13 @@
 getEvent();
 </script>
 <script>
-  function addHomeworkModal(id) {
+  function addHomeworkModal(id, day) {
     $.ajax({
       url: "manage_schedule/add_homework_modal.php",
       method: 'post',
       data: {
-        lesson_day_id: id
+        lesson_day_id: id,
+        homework_day: day,
       },
       success: function(result) {
         $(".add-homework-body").html(result);

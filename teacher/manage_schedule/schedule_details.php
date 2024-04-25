@@ -4,6 +4,7 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
 if (isset($_POST['class_name'])) {
     $Start_time = substr($_POST['start_time'], 0, -3);
     $End_time = substr($_POST['end_time'], 0, -3);
+    $Selected_date = $_POST['selected_date'];
     if($_POST['status'] == 0){
         $Status = 'Trực tiếp';
         $Color = '#0099FF';
@@ -36,15 +37,43 @@ if (isset($_POST['class_name'])) {
                 </tr>
             </table>';
 
-    $Lesson_day_id = "SELECT lesson_day_id FROM homework where lesson_day_id = ".$_POST['lesson_day_id']."";
+    $Lesson_day_id = "SELECT * FROM homework where lesson_day_id = ".$_POST['lesson_day_id']."";
     $LessonDayId_result = mysqli_query($conn, $Lesson_day_id);
     if(mysqli_num_rows($LessonDayId_result) > 0) {
-        echo 'co bai tap';
+        $output .='
+        <table style="text-align: center" class="table table-bordered">
+            <tr class="title_style">
+                <th> Học liệu </th>
+                <th> Tiêu đề </th>
+                <th></th>
+            </tr>';
+        foreach($LessonDayId_result as $row){
+            if($row['homework_day'] == $_POST['selected_date']){//nếu ngày của bt giao cùng ngày đã chọn trên lịch
+                $output .=' <tr style="background-color: #E8E8E8;">
+                            <td>'.$row['type'].'</td>
+                            <td>'.$row['title'].'</td>
+                            <td><a>Chi tiết</a></td>
+                        </tr>';
+            }
+        }
+        $output .='
+                </table>
+                <div style="text-align: center">
+                    <button onclick="addHomeworkModal('.$_POST['lesson_day_id'].', \''.$Selected_date.'\')" type="button" class="btn btn-primary"><i class="fa-solid fa-book"></i> Thêm học liệu</button>
+                </div>
+            </div>';
     }else{
-        $output .=' <div style="text-align: center">
-                        <button onclick="addHomeworkModal('.$_POST['lesson_day_id'].')" type="button" class="btn btn-primary"><i class="fa-solid fa-book"></i> Thêm học liệu</button>
+        $output .=' <table style="text-align: center" class="table table-bordered">
+                        <tr class="title_style">
+                            <th> Học liệu </th>
+                            <th> Tiêu đề </th>
+                            <th></th>
+                        </tr>
+                    </table>
+                    <div style="text-align: center">
+                        <button onclick="addHomeworkModal('.$_POST['lesson_day_id'].', \''.$Selected_date.'\')" type="button" class="btn btn-primary"><i class="fa-solid fa-book"></i> Thêm học liệu</button>
                     </div>
-                </div>';
+            </div>';
     }
     echo $output;
 }
