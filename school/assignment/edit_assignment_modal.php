@@ -48,14 +48,20 @@
                 <label for="class_id">Lớp học</label>
                 <select name="class_id[]" id="classes" multiple>'; 
                     $selected_class_ids = array();
+                    $Class_arr = array();
                     foreach ($Selected_Class as $selected_class) {
                         $selected_class_ids[] = $selected_class['class_id'];
+                    }
+                    // Lấy ds lớp đã có gvcn và hs
+                    $filterClass_query = mysqli_query($conn, "SELECT DISTINCT class_id FROM class_students");
+                    while($row = $filterClass_query->fetch_assoc()) {
+                        $Class_arr[] = $row['class_id'];
                     }
                     foreach ($Selected_Class as $selected_class) {
                         $output .= '<option selected value="' . $selected_class['class_id'] . '">' . $selected_class['class_name'] . '</option>';
                     }   
                     // Xây dựng câu truy vấn để lấy các lớp khác chưa được chọn
-                    $Classes = mysqli_query($conn, "SELECT * FROM class WHERE id NOT IN (" . implode(',', $selected_class_ids) . ")"); 
+                    $Classes = mysqli_query($conn, "SELECT * FROM class WHERE id NOT IN (" . implode(',', $selected_class_ids) . ") AND id IN (" . implode(',', $Class_arr) . ")"); 
                     if ($Classes->num_rows > 0) {
                         while ($class = mysqli_fetch_assoc($Classes)) {
                             $output .= '<option value="' . $class['id'] . '">' . $class['class_name'] . '</option>';

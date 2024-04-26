@@ -45,14 +45,16 @@ if (isset($_POST['class_name'])) {
             <tr class="title_style">
                 <th> Học liệu </th>
                 <th> Tiêu đề </th>
-                <th></th>
+                <th> Chi tiết </th>
             </tr>';
         foreach($LessonDayId_result as $row){
             if($row['homework_day'] == $_POST['selected_date']){//nếu ngày của bt giao cùng ngày đã chọn trên lịch
                 $output .=' <tr style="background-color: #E8E8E8;">
                             <td>'.$row['type'].'</td>
                             <td>'.$row['title'].'</td>
-                            <td><a>Chi tiết</a></td>
+                            <td><a href="#"><button id="searchBtn" class="btn btn-outline-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button></a></td>
                         </tr>';
             }
         }

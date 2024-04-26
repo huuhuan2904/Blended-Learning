@@ -9,12 +9,17 @@
     <?php
         if(isset($_POST["teacher_id"])){
             $output = '';
-
             $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
+            $Class_arr = array();
             
             $subjects_query = mysqli_query($conn, "Select * from subjects");
-            $class_query = mysqli_query($conn, "Select * from class");
                        
+            $filterClass_query = mysqli_query($conn, "SELECT DISTINCT class_id FROM class_students");
+            while($row = $filterClass_query->fetch_assoc()) {
+                $Class_arr[] = $row['class_id'];
+            }
+            $class_query = mysqli_query($conn, "Select * from class WHERE id IN (" . implode(',', $Class_arr) . ")");
+            
             $output .= '
             <form action="assignment/add_assignment.php" method="POST">
                 <input value="' .$_POST['teacher_id']. '" name="teacher_id" type="hidden">

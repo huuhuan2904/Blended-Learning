@@ -10,7 +10,7 @@ if(mysqli_num_rows($name_check) > 0){
 }else{
   $query = mysqli_query($conn, "INSERT INTO class (class_name)
   VALUES ('$Class_Name')");
-  header('location: class_management.php');
+  header('location: ../index.php?page=class_management');
 }
 
 

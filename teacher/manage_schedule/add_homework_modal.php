@@ -60,13 +60,10 @@ $output .='<div style="padding: 10px 30px 60px 30px">
     document.getElementById("content").value = pValue;
 </script>
 <script>
-    // Sự kiện lắng nghe cho phần tử select
     document.getElementById("type").addEventListener("change", function() {
         var selectedValue = this.value;
-        // Nếu đã chọn một giá trị khác rỗng từ select, loại bỏ thuộc tính required
         if (selectedValue !== "") {
             this.removeAttribute("required");
-            // Nếu giá trị đã chọn không phải là 2, loại bỏ thuộc tính required của phần tử input date
             if(selectedValue != 'Bài tập'){
                 var dateInputs = document.querySelectorAll(".date-input");
                 dateInputs.forEach(function(input) {
@@ -74,7 +71,6 @@ $output .='<div style="padding: 10px 30px 60px 30px">
                 });
             }
         } else {
-            // Nếu chưa chọn giá trị từ select, thêm thuộc tính required
             this.setAttribute("required", "required");
         }
     });
