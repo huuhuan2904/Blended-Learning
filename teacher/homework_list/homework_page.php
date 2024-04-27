@@ -1,11 +1,12 @@
 <?php
     $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
-    $Class_query = "SELECT assignment.class_id, class.class_name
+    $Class_query = "SELECT assignment.id, assignment.class_id, class.class_name
                     FROM assignment 
                     join class on assignment.class_id = class.id
                     where assignment.teacher_id  = ".$_SESSION['teacher_id']."";
     $Class_result = mysqli_query($conn, $Class_query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,38 +26,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- bootstrap core css -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
 </head>
+
+<body>
     <div class="container" style="max-width: 2140px;">
-        <form action="profile/edit_profile" method="POST">
-            <div class="form first">
-                <div class="fields">
-                    <div class="input-field">
-                        <label>Lớp học</label>
-                        <select name="class" id="class" onchange="selectedClass(value);" required>
-                            <option disabled selected>Chọn Lớp học</option>
-                            <?php
-                                if ($Class_result->num_rows > 0) {
-                                    while($row = $Class_result->fetch_assoc()) {
-                                        echo "<option value='" . $row['class_id'] . "'>" . $row['class_name'] . "</option>";
-                                    }
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    
-                </div>
-            </div>
-        </form>
+        <?php
+            if ($Class_result->num_rows > 0) {
+                while($row = $Class_result->fetch_assoc()) {
+                    echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>" . $row['class_name'] . "</button>";
+                }
+            }
+        ?>
         <div class="assignmentTable"></div>
     </div>
-<body>
-
 </body>
 </html>
 <script>
   function selectedClass(classId) {
+    console.log(classId);
     $.ajax({
-      url: "class_management/teaching_class_data.php",
+      url: "homework_list/homework_data.php",
       method: 'post',
       data: {
           class_id: classId,
@@ -67,3 +57,4 @@
     })
 }
 </script>
+

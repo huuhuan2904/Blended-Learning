@@ -44,15 +44,21 @@
                     </ul>
                 </li>
                 <li class="nav-item mb-1">
-                    <a href="index.php?page=personal_inf" class="">
-                        <i class="fa-solid fa-user"></i>
-                        Thông tin cá nhân
+                    <a href="#" class="">
+                        <i class="fa-solid fa-chalkboard"></i>
+                        Khóa học
                     </a>
                 </li>
                 <li class="nav-item mb-1">
-                    <a href="#" class="">
-                        <i class="fa-brands fa-leanpub"></i>
-                        Khóa học
+                    <a href="index.php?page=homework_page" class="">
+                        <i class="fa-solid fa-book"></i>
+                        Danh sách bài tập
+                    </a>
+                </li>
+                <li class="nav-item mb-1">
+                    <a href="index.php?page=personal_inf" class="">
+                        <i class="fa-solid fa-user"></i>
+                        Thông tin cá nhân
                     </a>
                 </li>
                 <li class="nav-item mb-1">

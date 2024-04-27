@@ -121,6 +121,14 @@
                                             echo 'Error: File not found';
                                         }
                                         break;
+                                    case 'homework_page':
+                                        $path = "homework_list/".$_GET["page"].".php";
+                                        if (file_exists($path)) {
+                                            include($path);
+                                        } else {
+                                            echo 'Error: File not found';
+                                        }
+                                        break;
                                     default:
                                         echo 'Error: Invalid page';
                                         break;
