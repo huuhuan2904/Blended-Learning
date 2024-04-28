@@ -27,7 +27,6 @@ $output .='<div style="padding: 10px 30px 60px 30px">
                     <input type="file" name="file" class="custom-file-input" id="customFile" required>
                     <label class="custom-file-label" for="customFile">Chọn file</label>
                 </div>
-              </div>
                 <div class="form-row">
                     <div class="col">
                         <label><b>Ngày bắt đầu</b></label>
@@ -39,9 +38,7 @@ $output .='<div style="padding: 10px 30px 60px 30px">
                     </div>
                 </div>
                 <label><b>Nội dung</b></label>
-                <div id="editor">
-                    <p id="pContent"></p>
-                </div>
+                <div id="editor"></div>
                 <input type="hidden" name="content" id="content" required>
                 <button type="submit" class="btn btn-primary" style="float: right">Submit</button>
             </form>
@@ -50,14 +47,17 @@ $output .='<div style="padding: 10px 30px 60px 30px">
 ?>
 <script>
     ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-</script>
-<script>
-    var pValue = document.getElementById("pContent").textContent;
-    document.getElementById("content").value = pValue;
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            window.editor = editor;
+            editor.model.document.on('change', () => {
+                var content = window.editor.getData();
+                document.getElementById("content").value = content;
+            });
+        })
+        .catch(error => {
+            console.error('There was an error initializing the editor:', error);
+        });
 </script>
 <script>
     document.getElementById("type").addEventListener("change", function() {

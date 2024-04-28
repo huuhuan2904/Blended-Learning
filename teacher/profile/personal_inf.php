@@ -247,7 +247,7 @@
                     </div>
                     <div class="input-field">
                         <label>Mật khẩu</label>
-                        <input value="<?php echo $row['password'] ?>" name="password" id="password" type="text"
+                        <input disabled value="<?php echo $row['password'] ?>" name="password" id="password" type="text"
                             placeholder="Nhập mật khẩu" required>
                     </div>
                     <?php }?>
@@ -259,7 +259,7 @@
                         <label>Môn dạy</label>
                         <input disabled value="<?php echo $row['name'] ?>" type="text">
                     </div>
-                    <?php }?>   
+                    <?php break;}?>   
                     <!-- class  -->
                     <?php 
                         foreach($Class_result as $row){

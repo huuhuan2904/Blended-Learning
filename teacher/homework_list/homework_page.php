@@ -27,6 +27,8 @@
     <!-- bootstrap core css -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
+    <!-- toast -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
 <body>
@@ -40,11 +42,30 @@
         ?>
         <div class="assignmentTable"></div>
     </div>
+
+    <div class="modal fade" id="editHomeworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div style="max-width: 1300px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Sửa học liệu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- modal body -->
+                <div class="modal-body2">
+                    <div style="padding: 60px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 <script>
   function selectedClass(classId) {
-    console.log(classId);
     $.ajax({
       url: "homework_list/homework_data.php",
       method: 'post',
@@ -57,4 +78,4 @@
     })
 }
 </script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
