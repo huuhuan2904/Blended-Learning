@@ -64,11 +64,30 @@
       var result = data;
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
+        customButtons: {
+          scheduleDetails: {
+            text: 'Chi tiết',
+            click: function() {
+              var jsonData = JSON.stringify(data);//chuyển data thành json
+              $.ajax({
+              url: "manage_schedule/schedule_details.php",
+              type: 'POST',
+              dataType: "html",
+              data: {jsonData: jsonData},
+              success: function(result) {
+                myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
+                myModal.show();
+                $(".schedule-modal-body").html(result);
+              },
+            });
+            }
+          }
+        },
         initialView: 'dayGridMonth',
         initialDate: '<?=date('Y-m-d')?>',
         height: 600,
         headerToolbar: {
-          left: 'prev,next today',
+          left: 'prev,next scheduleDetails today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
@@ -79,7 +98,7 @@
           var selectedDate = calEvent.event.start;
           var formattedDate = moment(selectedDate).format('YYYY-MM-DD');
           $.ajax({
-            url: "manage_schedule/schedule_details.php",
+            url: "manage_schedule/teaching_details.php",
             method: 'post',
             data: {
               class_name: calEvent.event.extendedProps.class_name,
