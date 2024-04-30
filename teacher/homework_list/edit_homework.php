@@ -1,4 +1,5 @@
 <?php
+session_start();
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
 
 foreach($_POST['arrayData'] as $key=>$value){
@@ -20,11 +21,14 @@ $result = mysqli_query($conn,"UPDATE homework SET type = '$Type', title = '$Titl
 
 if ($result) {
     if (mysqli_affected_rows($conn) > 0) {
-        echo "1";
+        $_SESSION['success'] = 2;
+        echo '1';
     } else {
-        echo "0";
+        $_SESSION['errorr'] = 2;
+        echo '0';
     }
 } else {
-    echo "0";
+    $_SESSION['errorr'] = 2;
+    echo '0';
 }
 ?>

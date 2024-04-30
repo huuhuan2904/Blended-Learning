@@ -63,34 +63,29 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
       },
       success: function(result) {
         if (result.trim() === "1") {
-                Toastify({
-                    text: "Học liệu đã được sửa!",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: 'right',
-                    backgroundColor: "#00CD66",
-                    color: "white",
-                    stopOnFocus: true,
-                }).showToast();
-                setTimeout(function(){
-                    var url = "./index.php?page=homework_page";
-                    window.location.href = url;
-                }, 2000);
-            } else {
-                Toastify({
-                    text: "Không có gì thay đổi!",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: 'right',
-                    backgroundColor: "#CD2626",
-                    color: "white",
-                    stopOnFocus: true,
-                }).showToast();
+                var url = "./index.php?page=homework_page";
+                window.location.href = url;
+        } else {
+            toastr.options = {
+            "closeButton": true,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
             }
+            $(document).ready(function onDocumentReady() {  
+                toastr.error("Lỗi");
+            });
+        }
       }
     })
 });

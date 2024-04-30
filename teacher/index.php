@@ -1,3 +1,4 @@
+
 <?php 
     session_start();
     define('ROOT_URL', 'http://localhost/final_project_admin/');
@@ -174,3 +175,35 @@ function updateDateTime() {
 // Gọi hàm updateDateTime mỗi giây
 setInterval(updateDateTime, 1000);
 </script>
+        	<!-- Toastr -->
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+            toastr.options = {
+            "closeButton": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-bottom-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+            }</script>
+<?php
+    if(!empty($_SESSION['success']) || $_SESSION['success'] === 2){?>
+        <script>      
+            $(document).ready(function onDocumentReady() {  
+                toastr.success("Sửa thành công");
+            });
+        </script>
+        <?php 
+        unset($_SESSION['success']);
+    }
+?>
+          

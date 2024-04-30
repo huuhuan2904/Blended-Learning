@@ -65,8 +65,9 @@ echo $output;
           currentDate.add(1, 'days');
         }
       });
-
-      calendar.render(); 
+      setTimeout(() => {
+        calendar.render(); 
+      }, 145);
     }
   });
 }
