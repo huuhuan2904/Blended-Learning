@@ -66,7 +66,7 @@
       var calendar = new FullCalendar.Calendar(calendarEl, {
         customButtons: {
           scheduleDetails: {
-            text: 'Chi tiết',
+            text: 'Lịch dạy',
             click: function() {
               var jsonData = JSON.stringify(data);//chuyển data thành json
               $.ajax({
@@ -81,19 +81,53 @@
               },
             });
             }
-          }
+          },
+          onlineClass: {
+            text: 'Lớp online toàn trường',
+            click: function() {
+              $.ajax({
+              url: "manage_schedule/online_teaching_modal.php",
+              type: 'POST',
+              success: function(result) {
+                myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
+                myModal.show();
+                $(".schedule-modal-body").html(result);
+              },
+            });
+            }
+          },
         },
         initialView: 'dayGridMonth',
         initialDate: '<?=date('Y-m-d')?>',
         height: 600,
         headerToolbar: {
-          left: 'prev,next scheduleDetails today',
+          left: 'prev,next scheduleDetails onlineClass today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
         selectable: true,
         selectHelper: true,
         dayMaxEvents: true,
+        select: function(info){
+          var startDate = info.start;
+          var startDayOfWeek = startDate.getDay();
+          // alert('selected ' + info.startStr + ' to ' + info.endStr);
+          $.ajax({
+              url: "manage_schedule/online_class_modal.php",
+              type: 'POST',
+              data: {
+                teacher_id: <?=$_SESSION['teacher_id'] ?>,
+                day_id: startDayOfWeek,
+                start_date: info.startStr,
+                end_date: info.endStr,
+              },
+              success: function(result) {
+                myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
+                myModal.show();
+                $(".schedule-modal-body").html(result);
+              },
+            });
+        },
         eventClick: function(calEvent, jsEvent, view) {  
           var selectedDate = calEvent.event.start;
           var formattedDate = moment(selectedDate).format('YYYY-MM-DD');

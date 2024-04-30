@@ -46,7 +46,7 @@
                 <li class="nav-item mb-1">
                     <a href="#" class="">
                         <i class="fa-solid fa-chalkboard"></i>
-                        Khóa học
+                        Buổi học trực tuyến
                     </a>
                 </li>
                 <li class="nav-item mb-1">

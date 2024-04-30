@@ -33,7 +33,7 @@
                     foreach($Lesson_id as $lesson_id_row){
                         $query = mysqli_query($conn, "INSERT INTO lesson_day (days_ass_id, lesson_id, status) VALUES ('$Day_ass_id','$lesson_id_row','$Status')");
                     }
-            } else {
+            }else {
                 echo "Error: " . mysqli_error($conn);
             }
         }
