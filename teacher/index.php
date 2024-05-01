@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Sidebar 1</title>
+    <title>Giáo viên | Quản trị</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,6 +130,14 @@
                                             echo 'Error: File not found';
                                         }
                                         break;
+                                    case 'online_class_page':
+                                        $path = "manage_online_classes/".$_GET["page"].".php";
+                                        if (file_exists($path)) {
+                                            include($path);
+                                        } else {
+                                            echo 'Error: File not found';
+                                        }
+                                        break;
                                     default:
                                         echo 'Error: Invalid page';
                                         break;
@@ -175,35 +183,43 @@ function updateDateTime() {
 // Gọi hàm updateDateTime mỗi giây
 setInterval(updateDateTime, 1000);
 </script>
-        	<!-- Toastr -->
-            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script>
-            toastr.options = {
-            "closeButton": true,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-bottom-center",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-            }</script>
+<!-- Toastr -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }</script>
 <?php
     if(!empty($_SESSION['success']) || $_SESSION['success'] === 2){?>
         <script>      
             $(document).ready(function onDocumentReady() {  
-                toastr.success("Sửa thành công");
+                toastr.success("Thay đổi thành công");
             });
         </script>
         <?php 
         unset($_SESSION['success']);
+    }elseif($_SESSION['errorr'] === 2){?>
+        <script>      
+            $(document).ready(function onDocumentReady() {  
+                toastr.error("Lỗi");
+            });
+        </script>
+        <?php 
+        unset($_SESSION['errorr']);
     }
 ?>
           

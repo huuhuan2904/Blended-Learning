@@ -45,7 +45,7 @@ if (isset($_POST['class_name'])) {
                 }else {
                     $output .='<tr>
                         <td><b>Link phòng học</b></td>
-                        <td colspan="5"><a href="'.$Link.'" target="_blank">'.$Link.'</a></td>
+                        <td colspan="5"><a href="'.$Link.'" target="blank">'.$Link.'</a></td>
                     </tr>';
                 }
             $output .='</table>';

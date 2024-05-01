@@ -17,7 +17,7 @@
                         <th> Ngày bắt đầu </th>
                         <th> Ngày kết thúc </th>
                         <th> Ngày giao </th>
-                        <th> Thao tác </th>
+                        <th colspan="2"> Thao tác </th>
                     </tr>';
             foreach($DaysAssignment_result as $row){
                 if($row['dayAssId']){
@@ -81,34 +81,28 @@ function deleteHomework(id) {
         },
         success: function(result) {
             if (result.trim() === "1") {
-                Toastify({
-                    text: "Học liệu này đã được xóa!",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: 'right',
-                    backgroundColor: "#00CD66",
-                    color: "white",
-                    stopOnFocus: true,
-                }).showToast();
-
-                setTimeout(function(){
-                    var url = "./index.php?page=homework_page";
-                    window.location.href = url;
-                }, 2000);
+                var url = "./index.php?page=homework_page";
+                window.location.href = url;
             } else {
-                Toastify({
-                    text: "Đã xảy ra lỗi!",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: 'right',
-                    backgroundColor: "#CD2626",
-                    color: "white",
-                    stopOnFocus: true,
-                }).showToast();
+                toastr.options = {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
+                $(document).ready(function onDocumentReady() {  
+                    toastr.error("Lỗi");
+                });
             }
         }
     });

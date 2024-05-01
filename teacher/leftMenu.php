@@ -44,7 +44,7 @@
                     </ul>
                 </li>
                 <li class="nav-item mb-1">
-                    <a href="#" class="">
+                    <a href="index.php?page=online_class_page" class="">
                         <i class="fa-solid fa-chalkboard"></i>
                         Buổi học trực tuyến
                     </a>
@@ -59,12 +59,6 @@
                     <a href="index.php?page=personal_inf" class="">
                         <i class="fa-solid fa-user"></i>
                         Thông tin cá nhân
-                    </a>
-                </li>
-                <li class="nav-item mb-1">
-                    <a href="#" class="">
-                        <i class="fa-solid fa-user"></i>
-                        User Reports
                     </a>
                 </li>
             </ul>

@@ -22,6 +22,15 @@ $result = mysqli_query($conn,$sql);
 
 $query = mysqli_query($conn, "UPDATE teachers SET name = '$Name', dob = '$DOB', gender = '$Gender', address = '$Address', phone = '$Phone', login_id = $Login_id 
 WHERE id = $Teacher_id");
-
-header('location: ../index.php?page=personal_inf');
+if ($query) {
+    if (mysqli_affected_rows($conn) > 0) {
+        $_SESSION['success'] = 2;
+    } else {
+        $_SESSION['errorr'] = 2;
+    }
+    header('location: ../index.php?page=personal_inf');
+} else {
+    $_SESSION['errorr'] = 2;
+    header('location: ../index.php?page=personal_inf');
+}
 ?>

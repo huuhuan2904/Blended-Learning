@@ -38,7 +38,7 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
                         }
                 $output .='</div>
                     <div style="text-align: right" class="right-button">
-                        <button id="Update" class="submit" type="button" style="float: right"><i class="fa-solid fa-check"></i></button>
+                        <button id="update" class="submit" type="button" style="float: right"><i class="fa-solid fa-check"></i></button>
                     </div>    
                 </div>
             </form>
@@ -46,7 +46,7 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
     echo $output;
 ?>
 <script>
-  $('#Update').on('click', function(){
+  $('#update').on('click', function(){
     var array = {
       'homeworkId': $('#homework_id').val(),
       'type': $('#type').val(),
@@ -63,8 +63,8 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
       },
       success: function(result) {
         if (result.trim() === "1") {
-                var url = "./index.php?page=homework_page";
-                window.location.href = url;
+            var url = "./index.php?page=homework_page";
+            window.location.href = url;
         } else {
             toastr.options = {
             "closeButton": true,
