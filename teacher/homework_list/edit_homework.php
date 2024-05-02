@@ -22,13 +22,14 @@ $result = mysqli_query($conn,"UPDATE homework SET type = '$Type', title = '$Titl
 if ($result) {
     if (mysqli_affected_rows($conn) > 0) {
         $_SESSION['success'] = 2;
+        $_SESSION['notification'] = 'Sửa thành công';
         echo '1';
     } else {
-        $_SESSION['errorr'] = 2;
+        $_SESSION['error'] = 2;
         echo '0';
     }
 } else {
-    $_SESSION['errorr'] = 2;
+    $_SESSION['error'] = 2;
     echo '0';
 }
 ?>

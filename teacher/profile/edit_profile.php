@@ -25,12 +25,15 @@ WHERE id = $Teacher_id");
 if ($query) {
     if (mysqli_affected_rows($conn) > 0) {
         $_SESSION['success'] = 2;
+        $_SESSION['notification'] = 'Sửa thành công';
     } else {
-        $_SESSION['errorr'] = 2;
+        $_SESSION['error'] = 2;
+        $_SESSION['notification'] = 'Không có thông tin gì thay đổi';
     }
     header('location: ../index.php?page=personal_inf');
 } else {
-    $_SESSION['errorr'] = 2;
+    $_SESSION['error'] = 2;
+    $_SESSION['notification'] = 'Lỗi';
     header('location: ../index.php?page=personal_inf');
 }
 ?>

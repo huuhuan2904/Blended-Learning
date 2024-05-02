@@ -21,9 +21,11 @@ $Online_class_result = mysqli_query($conn,"UPDATE online_class SET link = '$Link
 
 if ($Online_class_result || $Lesson_day_result) {
     $_SESSION['success'] = 2;
+    $_SESSION['notification'] = 'Sửa thành công';
     echo '1';
 } else {
-    $_SESSION['errorr'] = 2;
+    $_SESSION['error'] = 2;
+    $_SESSION['notification'] = 'Không có thông tin gì thay đổi';
     echo '0';
 }
 ?>

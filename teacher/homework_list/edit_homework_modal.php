@@ -83,7 +83,7 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
             "hideMethod": "fadeOut"
             }
             $(document).ready(function onDocumentReady() {  
-                toastr.error("Lỗi");
+                toastr.error("Không có thông tin gì thay đổi");
             });
         }
       }

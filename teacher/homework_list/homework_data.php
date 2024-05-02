@@ -16,7 +16,7 @@
                         <th> Nội dung </th>
                         <th> Ngày bắt đầu </th>
                         <th> Ngày kết thúc </th>
-                        <th> Ngày giao </th>
+                        <th> Giao ngày </th>
                         <th colspan="2"> Thao tác </th>
                     </tr>';
             foreach($DaysAssignment_result as $row){

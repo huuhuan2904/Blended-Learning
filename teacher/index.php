@@ -78,7 +78,7 @@
                 <div class="d-flex justify-content-between">
                     <h5 id="current-date-time"></h5>
                     <?php if(isset($_SESSION['teacher_name'])){?>
-                        <a class="btn btn-sm btn-light" href="<?= ROOT_URL?>teacher/authenticate/logout.php">
+                        <a class="btn btn-sm btn-light" href="<?= ROOT_URL?>authenticate/logout.php">
                         <i class="fa fa-sign-out"></i>Đăng xuất</a>
                     <?php
                         }
@@ -204,22 +204,30 @@ setInterval(updateDateTime, 1000);
         "hideMethod": "fadeOut"
     }</script>
 <?php
-    if(!empty($_SESSION['success']) || $_SESSION['success'] === 2){?>
-        <script>      
-            $(document).ready(function onDocumentReady() {  
-                toastr.success("Thay đổi thành công");
-            });
-        </script>
-        <?php 
-        unset($_SESSION['success']);
-    }elseif($_SESSION['errorr'] === 2){?>
-        <script>      
-            $(document).ready(function onDocumentReady() {  
-                toastr.error("Lỗi");
-            });
-        </script>
-        <?php 
-        unset($_SESSION['errorr']);
+    if(isset($_SESSION['success'])) {
+        if(!empty($_SESSION['success']) || $_SESSION['success'] === 2){?>
+            <script>      
+                $(document).ready(function onDocumentReady() { 
+                    toastr.success("<?php echo $_SESSION['notification']; ?>");
+                });
+            </script>
+            <?php 
+            unset($_SESSION['success']);
+            unset($_SESSION['notification']);
+        }
     }
+    if(isset($_SESSION['error'])){
+        if($_SESSION['error'] === 2){?>
+            <script>      
+                $(document).ready(function onDocumentReady() {  
+                    toastr.error("<?php echo $_SESSION['notification']; ?>");
+                });
+            </script>
+            <?php 
+            unset($_SESSION['error']);
+        }
+    }
+
+    
 ?>
           

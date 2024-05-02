@@ -23,25 +23,26 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
                     
                     if($Delete_days_ass){
                         $_SESSION['success'] = 2;
+                        $_SESSION['notification'] = 'Xóa thành công';
                         echo "1";
                     }else {
-                        $_SESSION['errorr'] = 2;
+                        $_SESSION['error'] = 2;
                         echo "0";
                     }
                 }else {
-                    $_SESSION['errorr'] = 2;
+                    $_SESSION['error'] = 2;
                     echo "0";
                 }
             }else {
-                $_SESSION['errorr'] = 2;
+                $_SESSION['error'] = 2;
                 echo "0";
             }
         }else {
-            $_SESSION['errorr'] = 2;
+            $_SESSION['error'] = 2;
             echo "0";
         }
     } else {
-        $_SESSION['errorr'] = 2;
+        $_SESSION['error'] = 2;
         echo "0";
     }
 ?>
