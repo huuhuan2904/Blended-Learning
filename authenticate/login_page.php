@@ -21,7 +21,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Quản trị nhà trường</title>
+  <title>Đăng nhập</title>
 
   <!-- font awesome style -->
   <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css" />
@@ -118,7 +118,7 @@
             <div class="header_top">
             <div class="header_top_left">
                 <ul class="top_nav">
-                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="../index.php">Trang chủ</a></li>
                 </ul>
             </div>
             <div class="header_top_right">
@@ -141,7 +141,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav main_nav">
-            <li class="active"><a href="index.html"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
+            <li class="active"><a href="../index.php"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
             <li><a href="#">Giới thiệu</a></li>
             <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tuyển sinh</a>
                 <ul class="dropdown-menu" role="menu">
@@ -163,6 +163,8 @@
         <div class="col-lg-12 col-md-12">
             <div class="latest_newsarea"> <span>Thông báo</span>
             <ul id="ticker01" class="news_sticker">
+                <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
+                <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
                 <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
                 <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
             </ul>
@@ -205,6 +207,13 @@
                 <div id="eye">
                     <i class="far fa-eye"></i>
                 </div>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="role" id="exampleFormControlSelect1">
+                    <option disabled selected hidden>Chọn vai trò</option>
+                    <option value="1">Học sinh</option>
+                    <option value="2">Giáo viên</option>
+                </select>
             </div>
             <button name="submit" value="Đăng nhập" class="form-submit">Đăng nhập</button>
         </form>

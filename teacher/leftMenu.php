@@ -71,8 +71,8 @@
                     <?php
                         }
                     ?>
-                    <?php if(isset($_SESSION['teacher_email'])){?>
-                        <small><?=$_SESSION['teacher_email'] ?></small>
+                    <?php if(isset($_SESSION['login_email'])){?>
+                        <small><?=$_SESSION['login_email'] ?></small>
                     <?php
                         }
                     ?>

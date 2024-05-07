@@ -7,40 +7,60 @@ if(isset($_POST['submit'])) {
     // get form data
     $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $password = filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $role = $_POST['role'];
 
     if(!$email) {
         $_SESSION['signin'] = "Vui lòng nhập email";
     }
     elseif(!$password) {
         $_SESSION['signin'] = "Vui lòng nhập mật khẩu";
+    }elseif(!$role) {
+        $_SESSION['signin'] = "Vui lòng chọn vai trò";
     }
     else {
-        //get user from database
-        $fetch_user_query = "SELECT * FROM logins WHERE email='$email'";
-        $fetch_user_result = mysqli_query($conn, $fetch_user_query);
+        $fetch_login_result = mysqli_query($conn, "SELECT * FROM logins WHERE email='$email'");
 
-        if(mysqli_num_rows($fetch_user_result) == 1) {
+        if(mysqli_num_rows($fetch_login_result) == 1) {
             // lấy inf đăng nhập
-            $login_record = mysqli_fetch_assoc($fetch_user_result);
-
-            $login_id = $login_record['id'];//lưu login id để lấy teacher inf
+            $login_record = mysqli_fetch_assoc($fetch_login_result);
+            $login_role = $login_record['role'];
+            $login_id = $login_record['id'];//lưu login id để lấy inf
             $_SESSION['login_id'] = $login_record['id'];
-            $_SESSION['teacher_email'] = $login_record['email'];
+            $_SESSION['login_email'] = $login_record['email'];
+            if($role == "1" && $role == $login_role){
+                $user_result = mysqli_query($conn, "SELECT * FROM students WHERE login_id='$login_id'");
+                $user_record = mysqli_fetch_assoc($user_result);
+                $_SESSION['student_id'] = $user_record['id'];
+                $_SESSION['last_name'] = $user_record['last_name'];
+                $_SESSION['first_name'] = $user_record['first_name'];
+                $_SESSION['success'] = 2;
+                $_SESSION['notification'] = 'Đăng nhập thành công';
 
-            $teacher_result = mysqli_query($conn, "SELECT * FROM teachers WHERE login_id='$login_id'");
-            $teacher_record = mysqli_fetch_assoc($teacher_result);
-            $_SESSION['teacher_id'] = $teacher_record['id'];
-            $_SESSION['teacher_name'] = $teacher_record['name'];
-            $_SESSION['success'] = 2;
-            $_SESSION['notification'] = 'Đăng nhập thành công';
+                $db_password = $login_record['password'];
+                $md5Passwork = md5($password);
+                if($md5Passwork == $db_password){
+                    header('location: ' . ROOT_URL . 'student/index.php');
+                }else{
+                    $_SESSION['signin'] = "Sai email hoặc mật khẩu";
+                }
 
-            $db_password = $login_record['password'];
-            $md5Passwork = md5($password);
-            if($md5Passwork == $db_password){
-                // log user in
-                header('location: ' . ROOT_URL . 'teacher/index.php?page=schedule_page');
+            }elseif($role == "2" && $role == $login_role){
+                $user_result = mysqli_query($conn, "SELECT * FROM teachers WHERE login_id='$login_id'");
+                $user_record = mysqli_fetch_assoc($user_result);
+                $_SESSION['teacher_id'] = $user_record['id'];
+                $_SESSION['teacher_name'] = $user_record['name'];
+                $_SESSION['success'] = 2;
+                $_SESSION['notification'] = 'Đăng nhập thành công';
+
+                $db_password = $login_record['password'];
+                $md5Passwork = md5($password);
+                if($md5Passwork == $db_password){
+                    header('location: ' . ROOT_URL . 'teacher/index.php?page=schedule_page');
+                }else{
+                    $_SESSION['signin'] = "Sai email hoặc mật khẩu";
+                }
             }else{
-                $_SESSION['signin'] = "Sai email hoặc mật khẩu";
+                $_SESSION['signin'] = "Sai thông tin đăng nhập";
             }
         }
         else {
