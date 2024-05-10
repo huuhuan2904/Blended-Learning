@@ -17,6 +17,7 @@
   <meta name="author" content="" />
 
   <title>Cổng thông tin đào tạo trường THPT</title>
+  <link rel="icon" type="image/x-icon" href="../images/Education_Logo.png">
 
   <!-- font awesome style -->
   <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css" />

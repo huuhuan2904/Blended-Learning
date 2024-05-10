@@ -158,20 +158,6 @@
         </div>
         </nav>
     </section>
-    <section id="newsSection">
-        <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="latest_newsarea"> <span>Thông báo</span>
-            <ul id="ticker01" class="news_sticker">
-                <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
-                <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
-                <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
-                <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
-            </ul>
-            </div>
-        </div>
-        </div>
-    </section>
     </div>
     <!-- end header section -->
   </div>

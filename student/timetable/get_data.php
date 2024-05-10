@@ -9,10 +9,11 @@ if(!empty($_GET['type']) && $_GET['type'] == 'list'){
     $Class_row = mysqli_fetch_assoc($Class_student);
     $Class_id = $Class_row['class_id'];
 
-    $student_ass = "SELECT assignment.id, subjects.name as subject_name, class.class_name 
+    $student_ass = "SELECT assignment.id, subjects.name as subject_name, class.class_name, teachers.name as teacher_name
                     FROM assignment 
                     join subjects on assignment.subject_id  = subjects.id
                     join class  on assignment.class_id  = class.id
+                    join teachers on assignment.teacher_id = teachers.id
                     where class_id = '$Class_id'";
     $Ass_result = mysqli_query($conn, $student_ass);
     $Ass_array = array();

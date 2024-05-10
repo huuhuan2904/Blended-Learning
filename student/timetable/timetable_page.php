@@ -47,11 +47,30 @@
       var result = data;
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
+        customButtons: {
+          timetableDetails: {
+            text: 'Thời khóa biểu',
+            click: function() {
+              var jsonData = JSON.stringify(data);//chuyển data thành json
+              $.ajax({
+              url: "timetable/timetable_details.php",
+              type: 'POST',
+              dataType: "html",
+              data: {jsonData: jsonData},
+              success: function(result) {
+                myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
+                myModal.show();
+                $(".schedule-modal-body").html(result);
+              },
+            });
+            }
+          },
+        },
         initialView: 'dayGridMonth',
         initialDate: '<?=date('Y-m-d')?>',
         height: 600,
         headerToolbar: {
-          left: 'prev,next today',
+          left: 'prev,next timetableDetails today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
@@ -62,10 +81,10 @@
           var selectedDate = calEvent.event.start;
           var formattedDate = moment(selectedDate).format('YYYY-MM-DD');
           $.ajax({
-            url: "timetable/timetable_details.php",
+            url: "timetable/lesson_details.php",
             method: 'post',
             data: {
-              class_name: calEvent.event.extendedProps.class_name,
+              teacher_name: calEvent.event.extendedProps.teacher_name,
               day_name: calEvent.event.extendedProps.day_name,
               lesson_name: calEvent.event.extendedProps.lesson_name,
               subject_name: calEvent.event.extendedProps.subject_name,

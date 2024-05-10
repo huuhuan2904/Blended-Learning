@@ -1,49 +1,39 @@
 <?php
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
 
-if (isset($_POST['class_name'])) {
-    $output = '';
-    $Start_time = substr($_POST['start_time'], 0, -3);
-    $End_time = substr($_POST['end_time'], 0, -3);
-    $Selected_date = $_POST['selected_date'];
-    
-    $LessonDayId_result = mysqli_query($conn, "SELECT * FROM homework where lesson_day_id = ".$_POST['lesson_day_id']."");
+if(isset($_POST['jsonData'])){
+    $jsonData = $_POST['jsonData'];
+    $decodedData = json_decode($jsonData, true); // chuyển đổi chuỗi JSON thành mảng PHP
 
-    if($_POST['status'] == 0){
-        $Status = 'Trực tiếp';
-        $Color = '#0099FF';
-    }else {
-        $OnlineClass_result = mysqli_query($conn, "SELECT * FROM online_class where lesson_day_id = ".$_POST['lesson_day_id']."");
-        $OnlineClass_record = mysqli_fetch_assoc($OnlineClass_result);
-        $Link = $OnlineClass_record['link'];
-        $Status = 'Trực tuyến';
-        $Color = '#33CC00';
-    }
-    $output .='
-        <div class="table_data" style="padding: 20px">
-            <input type="hidden" id="lesson_day_id" name="lesson_day_id" value='.$_POST['lesson_day_id'].'>
+    $output = '';
+    $output .= '<div class="table_data" style="padding: 20px">
             <table style="text-align: center" class="table table-bordered">
-                <tr class="title_style" style="background-color: '.$Color.'; color: white">
-                    <th></th>
-                    <th style="text-align: center"> Tiết </th>
-                    <th style="text-align: center"> Môn </th>
-                    <th style="text-align: center"> Lớp </th>
-                    <th style="text-align: center"> Hình thức </th>
-                </tr>
-                <tr>
-                    <td><b>'.$_POST['day_name'].'</b></td>
-                    <td>'.$_POST['lesson_name'].'<br>'.$Start_time.'-'.$End_time.'</td>
-                    <td>'.$_POST['subject_name'].'</td>
-                    <td>'.$_POST['class_name'].'</td>
-                    <td>'.$Status.'</td>
-                </tr>';
-                if($_POST['status'] == 1){
-                    $output .='<tr>
-                        <td><b>Link phòng học</b></td>
-                        <td colspan="5"><a href="'.$Link.'" target="blank">'.$Link.'</a></td>
-                    </tr>';
+                <tr class="title_style">';
+    $output .= '<th style="text-align: center">Tiết / Thứ</th>';
+    //cột ngang từ Thứ 2 đến Thứ 7
+    for ($day = 2; $day <= 7; $day++) {
+        $output .= "<th style='text-align: center'>Thứ ".$day."</th>";
+    }
+    $output .= "</tr>";
+    for ($lesson = 1; $lesson <= 10; $lesson++) {
+        $output .= "<tr>";
+        $output .= "<td><b>Tiết ".$lesson."</b></td>"; // cột các tiết học
+        for ($day = 1; $day <= 6; $day++) {
+            $found = false;
+            foreach ($decodedData as $item) {
+                if ($item['day'] == $day && $item['lesson_id'] == $lesson + 1) {//+1 vì db của lesson là từ 2-11
+                    $output .= "<td>".$item['subject_name']."</td>";
+                    $found = true;
+                    break;
                 }
-            $output .='</table>';
+            }
+            if (!$found) {
+                $output .= '<td></td>';
+            }
+        }
+        $output .= '</tr>';
+    }
+    $output .= '</table></div>';
     echo $output;
 }
 ?>

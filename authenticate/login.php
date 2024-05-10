@@ -39,7 +39,7 @@ if(isset($_POST['submit'])) {
                 $db_password = $login_record['password'];
                 $md5Passwork = md5($password);
                 if($md5Passwork == $db_password){
-                    header('location: ' . ROOT_URL . 'student/index.php');
+                    header('location: ' . ROOT_URL . 'student/index.php?page=timetable_page');
                 }else{
                     $_SESSION['signin'] = "Sai email hoặc mật khẩu";
                 }
