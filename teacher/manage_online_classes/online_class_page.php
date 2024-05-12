@@ -3,7 +3,8 @@
     $Class_query = "SELECT assignment.id, assignment.class_id, class.class_name
                     FROM assignment 
                     join class on assignment.class_id = class.id
-                    where assignment.teacher_id  = ".$_SESSION['teacher_id']."";
+                    where assignment.teacher_id  = ".$_SESSION['teacher_id']."
+                    ORDER BY class.class_name";
     $Class_result = mysqli_query($conn, $Class_query);
 ?>
 
@@ -35,7 +36,7 @@
         <?php
             if ($Class_result->num_rows > 0) {
                 while($row = $Class_result->fetch_assoc()) {
-                    echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>" . $row['class_name'] . "</button>";
+                    echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>".$row['class_name']."  <i class=\"fa-solid fa-caret-down\"></i></button>";
                 }
             }
         ?>

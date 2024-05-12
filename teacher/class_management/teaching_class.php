@@ -3,7 +3,8 @@
     $Class_query = "SELECT assignment.class_id, class.class_name
                     FROM assignment 
                     join class on assignment.class_id = class.id
-                    where assignment.teacher_id  = ".$_SESSION['teacher_id']."";
+                    where assignment.teacher_id  = ".$_SESSION['teacher_id']."
+                    ORDER BY class.class_name";
     $Class_result = mysqli_query($conn, $Class_query);
 ?>
 <!DOCTYPE html>

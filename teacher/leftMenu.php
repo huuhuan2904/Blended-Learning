@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white offcanvas-md offcanvas-start" style="width: 280px;background-color: rgba(var(--bs-success-rgb) !important">
+<div id="bdSidebar" class="d-flex flex-column flex-shrink-0 p-3 text-white offcanvas-md offcanvas-start" style="width: 280px;background-color: rgba(var(--bs-success-rgb)) !important">
             <a href="#" class="navbar-brand">
                 <h5><i class="fa-solid fa-bomb me-2" style="font-size: 28px;"></i>Giáo viên</h5>
             </a>
@@ -64,7 +64,7 @@
             </ul>
             <hr>
             <div class="d-flex">
-                <img src="../images/logoschool.jpg" class="img-fluid rounded me-2" width="50px" alt="">
+                <img src="../images/Education_Logo.png" class="img-fluid rounded me-2" width="50px" alt="">
                 <span>
                     <?php if(isset($_SESSION['teacher_name'])){?>
                         <h6><?=$_SESSION['teacher_name'] ?></h6>

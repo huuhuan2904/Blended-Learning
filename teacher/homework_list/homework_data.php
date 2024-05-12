@@ -1,24 +1,24 @@
 <?php
     $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
-    if(isset($_POST["class_id"])){
+    if(isset($_POST["assignmentId"])){
         $output = '';
-        $DaysAssignment_result = mysqli_query($conn,'SELECT id as dayAssId from days_assignment where assignment_id = '.$_POST["class_id"].'');
+        $DaysAssignment_result = mysqli_query($conn,'SELECT id as dayAssId from days_assignment where assignment_id = '.$_POST["assignmentId"].'');
         $Days_id = array();
         $DaysAssignment_id = array();
 
         $output .= '
-        <div class="table_data" style="padding-top: 30px;>
-            <form action="calendar/create_schedule.php" method="POST">
-                <table style="text-align: center" class="table table-bordered">
-                    <tr class="title_style" style="background-color: black; color: white">
+                <table style="text-align: center" class="table">
+                    <thead>
+                    <tr class="title_style">
                         <th> Học liệu </th>
                         <th> Tiêu đề </th>
                         <th> Nội dung </th>
                         <th> Ngày bắt đầu </th>
                         <th> Ngày kết thúc </th>
                         <th> Giao ngày </th>
-                        <th colspan="2"> Thao tác </th>
-                    </tr>';
+                        <th> Thao tác </th>
+                    </tr>
+                    </thead>';
             foreach($DaysAssignment_result as $row){
                 if($row['dayAssId']){
                     $LessonDay_result = mysqli_query($conn,'SELECT id as lessonDayId from lesson_day where days_ass_id = '.$row['dayAssId'].'');
@@ -27,6 +27,7 @@
                             $Homework_result = mysqli_query($conn,'SELECT * from homework where lesson_day_id  = '.$row2['lessonDayId'].'');
                             foreach($Homework_result as $row3){
                                 $output .='
+                                <tbody>
                                     <tr>
                                         <td>'.$row3['type'].'</td>
                                         <td>'.$row3['title'].'</td>
@@ -42,17 +43,33 @@
                                         }
                                         $output .='
                                         <td>'.$row3['homework_day'].'</td>
-                                        <td><button type="button" class="btn btn-secondary" onclick="editHomework('.$row3['id'].')"><i class="fa-solid fa-pen-to-square"></i></button></td>
-                                        <td><button type="button" class="btn btn-danger" onclick="deleteHomework('.$row3['id'].')"><i class="fa-solid fa-trash"></i></button></td>
-                                    </tr>';
+                                        
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
+                                                    <i class="fa-solid fa-gear"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a><button type="button" class="dropdown-item" onclick="editHomework('.$row3['id'].')"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
+                                                    <a><button type="button" class="dropdown-item" onclick="deleteHomework('.$row3['id'].')"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                                                    <a>
+                                                        <form action="index.php?page=homework_details" method="POST">
+                                                            <input type="hidden" name="homeworkId" id="homeworkId" value="'.$row3['id'].'">
+                                                            <input type="hidden" name="classId" id="classId" value="'.$_POST["classId"].'">
+                                                            <button type="submit" class="dropdown-item"><i class="fa-solid fa-magnifying-glass"></i> Chi tiết</button>
+                                                        </form>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>';
                             }
                         }
                     }
                 }
             }
-        $output .=' </table>
-                </form>
-            <div/>';
+        $output .=' </table>';
         echo $output;
     }
 ?>
@@ -100,13 +117,28 @@ function deleteHomework(id) {
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
                 }
-                $(document).ready(function onDocumentReady() {  
+                $(document).ready(function onDocumentReady() {
                     toastr.error("Lỗi");
                 });
             }
         }
     });
 }
+</script>
+<script>
+    function detailsHomework(id) {
+        $.ajax({
+            url: "homework_list/homework_details.php",
+            method: 'post',
+            data: {
+                homework_id: id,
+            },
+            success: function(result) {
+                $(".modal-body2").html(result);
+                $('#editHomeworkModal').modal('show'); 
+            }
+        })
+    }
 </script>
 
 

@@ -15,30 +15,39 @@
         $DaysAssignment_id = array();
 
         $output .= '
-        <div class="table_data" style="padding-top: 30px;>
-            <form action="calendar/create_schedule.php" method="POST">
-                <table style="text-align: center" class="table table-bordered">
-                    <tr class="title_style" style="background-color: black; color: white">
+                <table style="text-align: center" class="table">
+                    <thead>
+                    <tr class="title_style">
                         <th> Lớp </th>
                         <th> Thứ </th>
                         <th> Tiết </th>
                         <th> Link phòng </th>
                         <th colspan="2"> Thao tác </th>
-                    </tr>';
+                    </tr>
+                    </thead>';
             foreach($Online_class_result as $row){
                 $output .='
+                <tbody>
                 <tr>
                     <td>'.$row['class_name'].'</td>
                     <td>'.$row['name'].'</td>
                     <td>'.$row['lesson_name'].'</td>
                     <td><a href="'.$row['link'].'" target="blank">'.$row['link'].'</a></td>
-                    <td><button type="button" class="btn btn-secondary" onclick="editOnlineClass('.$row['online_id'].','.$row['lesson_day_id'].')"><i class="fa-solid fa-pen-to-square"></i></button></td>
-                    <td><button type="button" class="btn btn-danger" onclick="deleteOnlineClass('.$row['online_id'].')"><i class="fa-solid fa-trash"></i></button></td>
-                </tr>';
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a><button type="button" class="dropdown-item" onclick="editOnlineClass('.$row['online_id'].','.$row['lesson_day_id'].')"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
+                                <a><button type="button" class="dropdown-item" onclick="deleteOnlineClass('.$row['online_id'].')"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>';
             }
-        $output .=' </table>
-                </form>
-            <div/>';
+        $output .=' </table>';
         echo $output;
     }
 ?>

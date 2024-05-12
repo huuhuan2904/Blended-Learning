@@ -40,7 +40,7 @@ $output .='<div style="padding: 10px 30px 60px 30px">
                 <label><b>Nội dung</b></label>
                 <div id="editor"></div>
                 <input type="hidden" name="content" id="content" required>
-                <button type="submit" class="btn btn-primary" style="float: right">Submit</button>
+                <button type="submit" class="btn btn-primary" style="float: right">Xác nhận</button>
             </form>
         </div>';
     echo $output;
@@ -53,6 +53,7 @@ $output .='<div style="padding: 10px 30px 60px 30px">
             editor.model.document.on('change', () => {
                 var content = window.editor.getData();
                 document.getElementById("content").value = content;
+                console.log(content);
             });
         })
         .catch(error => {
