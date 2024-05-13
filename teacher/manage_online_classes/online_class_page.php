@@ -35,10 +35,12 @@
     <div class="container" style="max-width: 2140px;">
         <?php
             $class_results = [];
+            $class_ids = array();
             if ($Class_result->num_rows > 0) {
                 echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick=\"location.href='index.php?page=online_class_page'\" type='button'>Tất cả  <i class=\"fa-solid fa-caret-down\"></i></button>";
                 while($row = $Class_result->fetch_assoc()) {
                     $class_results[] = $row;
+                    $class_ids[] = $row['id'];
                     echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>".$row['class_name']."  <i class=\"fa-solid fa-caret-down\"></i></button>";                
                 }
             }
@@ -47,7 +49,7 @@
         <div style='margin-top: 10px;'>
             <table style="text-align: center" class="table">
             <?php 
-            foreach ($class_results as $row) {
+                $class_ids_str = implode(',', $class_ids);
                 $Online_class_result = mysqli_query($conn,' SELECT *, online_class.id AS online_id, lessons.name AS lesson_name
                                                             FROM online_class
                                                             JOIN lesson_day ON online_class.lesson_day_id = lesson_day.id
@@ -56,8 +58,9 @@
                                                             JOIN days ON days_assignment.day = days.id
                                                             JOIN assignment ON days_assignment.assignment_id = assignment.id
                                                             JOIN class ON assignment.class_id = class.id
-                                                            WHERE days_assignment.assignment_id = '.$row['id'].'
-                                                            AND days_assignment.start_date >= CURDATE()
+                                                            WHERE days_assignment.assignment_id IN ('.$class_ids_str.')
+                                                            AND (DATE(days_assignment.start_date) = CURDATE() OR DATE(days_assignment.start_date) > CURDATE())
+                                                            ORDER BY DATE(days_assignment.start_date) ASC
                                                             LIMIT 1;'); 
                 if ($Online_class_result->num_rows > 0) {
                         foreach($Online_class_result as $row2){ 
@@ -74,7 +77,7 @@
                             </tbody>
                     <?php } 
                     }
-                }?>
+                ?>
             </table>
         </div>
         <br>
@@ -198,7 +201,7 @@ function deleteOnlineClass(onlineId) {
         },
         success: function(result) {
             if (result.trim() === "1") {
-                var url = "./index.php?page=homework_page";
+                var url = "./index.php?page=online_class_page";
                 window.location.href = url;
             } else {
                 toastr.options = {

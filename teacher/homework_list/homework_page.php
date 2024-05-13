@@ -72,7 +72,7 @@
                         if ($Homework_result->num_rows > 0) {
                             foreach($Homework_result as $row2){ ?>
                             <!-- kiểm tra nếu ngày trong start_date là quá khứ và khác ngày hiện tại thì hiện màu đỏ -->
-                            <tr <?php echo (strtotime($row2['deadline']) < time() && date('Y-m-d', strtotime($row2['deadline'])) !== date('Y-m-d')) ? 'class="table-danger"' : ''; ?>>
+                            <tr <?php echo (strtotime($row2['deadline']) < time() && $row2['deadline'] != '0000-00-00' && date('Y-m-d', strtotime($row2['deadline'])) !== date('Y-m-d')) ? 'class="table-danger"' : ''; ?>>
                                 <td><?php echo $row2['type']?></td>
                                 <td><?php echo $row2['title']?></td>
                                 <td><?php echo $row2['content']?></td>
@@ -91,7 +91,7 @@
                                                     <i class="fa-solid fa-gear"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <?php if (strtotime($row2['deadline']) > time() || date('Y-m-d', strtotime($row2['deadline'])) === date('Y-m-d')) : ?>
+                                                    <?php if (strtotime($row2['deadline']) > time() || $row2['deadline'] == '0000-00-00' || date('Y-m-d', strtotime($row2['deadline'])) === date('Y-m-d')) : ?>
                                                         <a><button type="button" class="dropdown-item" onclick="editHomework(<?php echo $row2['homework_id']?>)"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
                                                         <a><button type="button" class="dropdown-item" onclick="deleteHomework(<?php echo $row2['homework_id']?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
                                                         <a>
@@ -102,6 +102,7 @@
                                                             </form>
                                                         </a>
                                                     <?php else: ?>
+                                                        <a><button type="button" class="dropdown-item" onclick="deleteHomework(<?php echo $row2['homework_id']?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
                                                         <a>
                                                             <form action="index.php?page=homework_details" method="POST">
                                                                 <input type="hidden" name="homeworkId" id="homeworkId" value="<?php echo $row2['homework_id']?>">

@@ -21,12 +21,13 @@
                         <th> Ngày bắt đầu </th>
                         <th> Ngày kết thúc </th>
                         <th> Ngày giao </th>
+                        <th> Tiết </th>
                         <th> Thao tác </th>
                     </tr>
                     </thead>';
                     foreach($Homework_result as $row3){
                         $output .= '<tbody>';
-                        if (strtotime($row3['deadline']) < time() && date('Y-m-d', strtotime($row3['deadline'])) !== date('Y-m-d')) {
+                        if (strtotime($row3['deadline']) < time() && $row3['deadline'] != '0000-00-00' && date('Y-m-d', strtotime($row3['deadline'])) !== date('Y-m-d')) {
                             $output .= '<tr class="table-danger">';
                         } else {
                             $output .= '<tr>';
@@ -46,13 +47,14 @@
                                 }
                                     $output .='
                                         <td>'.$row3['homework_day'].'</td>
+                                        <td>'.$row3['lesson_name'].'</td>
                                         <td>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
                                                     <i class="fa-solid fa-gear"></i>
                                                 </button>
                                                 <div class="dropdown-menu">';
-                                                if (strtotime($row3['deadline']) > time() || date('Y-m-d', strtotime($row3['deadline'])) === date('Y-m-d')) {
+                                                if (strtotime($row3['deadline']) > time() || $row3['deadline'] == '0000-00-00' || date('Y-m-d', strtotime($row3['deadline'])) === date('Y-m-d')) {
                                                     $output .='
                                                             <a><button type="button" class="dropdown-item" onclick="editHomework('.$row3['homework_id'].')"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
                                                             <a><button type="button" class="dropdown-item" onclick="deleteHomework('.$row3['homework_id'].')"><i class="fa-solid fa-trash"></i> Xóa</button></a>
@@ -67,6 +69,7 @@
                                                     </div>';
                                                 }else{
                                                     $output .='
+                                                            <a><button type="button" class="dropdown-item" onclick="deleteHomework('.$row3['homework_id'].')"><i class="fa-solid fa-trash"></i> Xóa</button></a>
                                                             <a>
                                                                 <form action="index.php?page=homework_details" method="POST">
                                                                     <input type="hidden" name="homeworkId" id="homeworkId" value="'.$row3['homework_id'].'">

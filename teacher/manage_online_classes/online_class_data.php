@@ -27,7 +27,7 @@
                 $formattedStartTime = date("H:i", strtotime($row['start_time']));
                 $formattedEndTime = date("H:i", strtotime($row['end_time'])); 
                 $output .= '<tbody>';
-                if (strtotime($row['start_date']) < time()) {
+                if (strtotime($row['start_date']) < time() && date('Y-m-d', strtotime($row['start_date'])) !== date('Y-m-d')) {
                     $output .= '<tr class="table-danger">';
                 } else {
                     $output .= '<tr>';
@@ -38,7 +38,7 @@
                     <td>'.$row['start_date'].' ('.$row['name'].')</td>
                     <td><a href="'.$row['link'].'" target="blank">'.$row['link'].'</a></td>
                     <td>';
-                if (strtotime($row['start_date']) >= time()) {
+                if (strtotime($row['start_date']) > time() || date('Y-m-d', strtotime($row['start_date'])) === date('Y-m-d')) {
                     $output .= '
                         <div class="btn-group">
                             <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
