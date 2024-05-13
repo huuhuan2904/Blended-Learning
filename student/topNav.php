@@ -67,7 +67,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" style="background-color:#009ACD">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"  style="text-shadow: none; color: white">
                         <?php if(isset($_SESSION['first_name'])){?>
                             <?=$_SESSION['last_name']?> <?=$_SESSION['first_name']?>
                         <?php } ?>    

@@ -5,7 +5,8 @@
                     JOIN students ON class_students.student_id = students.id
                     JOIN class ON class_students.class_id = class.id
                     JOIN logins ON students.login_id = logins.id
-                    where teacher_id  = ".$_SESSION['teacher_id']."";
+                    where teacher_id  = ".$_SESSION['teacher_id']."
+                    ORDER BY students.first_name";
     $Class_result = mysqli_query($conn, $Class_query);
 ?>
 <!DOCTYPE html>
@@ -14,7 +15,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Sidebar 1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,7 +31,8 @@
 <body>
     <div class="table_data">
         <table style="text-align: center" class="table table-bordered">
-          <tr class="title_style" style="background-color: black; color: white">
+          <thead>
+          <tr class="title_style">
             <th></th>
             <th> Họ và tên đệm </th>
             <th> Tên </th>
@@ -42,6 +43,7 @@
             <th> Dân tộc </th>
             <th> Email </th>
           </tr>
+          </thead>
             <?php 
                 $firstRow = true;
                 if(mysqli_num_rows($Class_result) > 0){

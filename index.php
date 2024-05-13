@@ -29,10 +29,10 @@
   <header id="header">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="header_top">
+        <div class="header_top" style="background-color: #00439d;">
           <div class="header_top_left">
             <ul class="top_nav">
-              <li><a href="index.php">Trang chủ</a></li>
+              <li><a href="index.php" style="border-right: none">Trang chủ</a></li>
             </ul>
           </div>
           <div class="header_top_right">
@@ -49,25 +49,25 @@
     </div>
   </header>
   <section id="navArea">
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation" style="background-color: #00439d;">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav main_nav">
           <li class="active"><a href="index.php"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-          <li><a href="#">Giới thiệu</a></li>
-          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tuyển sinh</a>
+          <li><a style="border-left: none; text-shadow: none" href="#">Giới thiệu</a></li>
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="border-left: none; text-shadow: none">Tuyển sinh</a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Học bổng</a></li>
               <li><a href="#">Học phí</a></li>
               <li><a href="#">Tư vấn nhập học</a></li>
             </ul>
           </li>
-          <li><a href="#">Tin tức</a></li>
-          <li><a href="#">Câu lạc bộ</a></li>
-          <li><a href="pages/contact.html">Liên hệ</a></li>
-          <li><a href="./authenticate/login_page.php">Đăng nhập</a></li>
+          <li><a style="border-left: none; text-shadow: none" href="#">Tin tức</a></li>
+          <li><a style="border-left: none; text-shadow: none" href="#">Câu lạc bộ</a></li>
+          <li><a style="border-left: none; text-shadow: none" href="pages/contact.html">Liên hệ</a></li>
+          <li><a style="border-left: none; text-shadow: none" href="./authenticate/login_page.php">Đăng nhập</a></li>
         </ul>
       </div>
     </nav>
@@ -75,7 +75,7 @@
   <section id="newsSection">
     <div class="row">
       <div class="col-lg-12 col-md-12">
-        <div class="latest_newsarea"> <span>Thông báo</span>
+        <div class="latest_newsarea" style="background-color: #a3cbe5;"> <span>Thông báo</span>
           <ul id="ticker01" class="news_sticker">
             <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
             <li><a href="#">CHÀO MỪNG BẠN ĐẾN VỚI TRANG THÔNG TIN ĐIỆN TỬ TRƯỜNG THPT</a></li>
@@ -130,7 +130,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="latest_post">
-          <h2><span>Thông báo</span></h2>
+          <h2 style="background-color: #00439d;"><span>Thông báo</span></h2>
           <div class="latest_post_container">
             <div id="prev-button"><i class="fa fa-chevron-up"></i></div>
             <ul class="latest_postnav">
@@ -171,7 +171,7 @@
       <div class="col-lg-8 col-md-8 col-sm-8">
         <div class="left_content">
           <div class="single_post_content">
-            <h2><span>Tin tức</span></h2>
+            <h2 style="background-color: #00439d;"><span>Tin tức</span></h2>
             <div class="single_post_content_left">
               <ul class="business_catgnav  wow fadeInDown">
                 <li>
@@ -200,7 +200,7 @@
           <div class="fashion_technology_area">
             <div class="fashion">
               <div class="single_post_content">
-                <h2><span>Tuyển sinh</span></h2>
+                <h2 style="background-color: #00439d;"><span>Tuyển sinh</span></h2>
                 <ul class="business_catgnav wow fadeInDown">
                   <li>
                     <figure class="bsbig_fig"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="images/featured_img2.jpg"> <span class="overlay"></span> </a>
@@ -224,7 +224,7 @@
             </div>
             <div class="technology">
               <div class="single_post_content">
-                <h2><span>Hoạt động</span></h2>
+                <h2 style="background-color: #00439d;"><span>Hoạt động</span></h2>
                 <ul class="business_catgnav">
                   <li>
                     <figure class="bsbig_fig wow fadeInDown"> <a href="pages/single_page.html" class="featured_img"> <img alt="" src="images/featured_img3.jpg"> <span class="overlay"></span> </a>
@@ -247,7 +247,7 @@
       <div class="col-lg-4 col-md-4 col-sm-4">
         <aside class="right_content">
           <div class="single_sidebar">
-            <h2><span>Thông báo từ sở</span></h2>
+            <h2 style="background-color: #00439d;"><span>Thông báo từ sở</span></h2>
             <ul class="spost_nav">
               <li>
                 <div class="media wow fadeInDown">
@@ -267,7 +267,7 @@
             </ul>
           </div>
           <div class="single_sidebar">
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs" role="tablist" style="background-color: #00439d;">
               <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Tổ môn</a></li>
               <li role="presentation"><a href="#video" aria-controls="profile" role="tab" data-toggle="tab">Video</a></li>
             </ul>
@@ -292,14 +292,14 @@
             </div>
           </div>
           <div class="single_sidebar wow fadeInDown">
-            <h2><span>Hình ảnh tiêu biểu</span></h2>
+            <h2 style="background-color: #00439d;"><span>Hình ảnh tiêu biểu</span></h2>
             <a class="sideAdd" href="#"><img src="http://c3hongduc.daklak.edu.vn/wp-content/uploads/Thumbcache/hinh-anh-tieu-bieu-126-nqrkslssg9cx7au4yv7jnfdxcsdq4gmb9xgdzl55n6.jpg"></a> </div>
         </aside>
       </div>
     </div>
   </section>
   <footer id="footer">
-    <div class="footer_top">
+    <div class="footer_top" style="background-color: #00439d;">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
         </div>

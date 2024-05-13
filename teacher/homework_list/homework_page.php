@@ -36,7 +36,7 @@
         <?php
             $class_results = [];
             if ($Class_result->num_rows > 0) {
-                echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick=\"location.href='index.php?page=homework_page'\" type='button'>Tất cả  <i class=\"fa-solid fa-caret-down\"></i></button>";
+                echo "<button class='btn btn-warning' style='margin-right: 10px;' onclick=\"location.href='index.php?page=homework_page'\" type='button'>Tải lại  <i class=\"fa-solid fa-rotate-right\"></i></button>";
                 while($row = $Class_result->fetch_assoc()) {
                     $class_results[] = $row;
                     echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].", ".$row['class_id'].");'>".$row['class_name']." <i class=\"fa-solid fa-caret-down\"></i></button>";

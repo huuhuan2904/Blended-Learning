@@ -5,13 +5,14 @@
         $Assignment_result = mysqli_query($conn,'SELECT class_students.student_id, students.*
                                                 from class_students 
                                                 join students on class_students.student_id = students.id
-                                                where class_students.class_id = '.$_POST["class_id"].'');
+                                                where class_students.class_id = '.$_POST["class_id"].'
+                                                ORDER BY students.first_name');
         
         $output .= '
             <div class="table_data">
-                <form action="calendar/create_schedule.php" method="POST">
-                    <table style="text-align: center" class="table table-bordered">
-                        <tr class="title_style" style="background-color: black; color: white">
+                    <table style="text-align: center" class="table">
+                        <thead>
+                        <tr class="title_style">
                             <th> Họ và tên đệm </th>
                             <th> Tên </th>
                             <th> Ngày sinh </th>
@@ -19,7 +20,8 @@
                             <th> Địa chỉ </th>
                             <th> Số điện thoại </th>
                             <th> Dân tộc </th>
-                        </tr>';
+                        </tr>
+                        </thead>';
                             if(mysqli_num_rows($Assignment_result) > 0){
                                 foreach($Assignment_result as $row)
                                 {
@@ -41,7 +43,6 @@
                                         </tr>';
                             }
         $output .=' </table>
-                </form>
             <div/>';
         echo $output;
     }

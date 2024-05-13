@@ -49,27 +49,28 @@
         align-items: center;
     }
     #form-login{
+        border: 1px solid #00439d;
         border-radius: 20px;
         max-width: 400px;
-        background: rgba(0, 0, 0 , 0.8);
+        background: white;
         flex-grow: 1;
         padding: 30px 30px 40px;
         box-shadow: 0px 0px 17px 2px rgba(255, 255, 255, 0.8);
     }
     .form-heading{
         font-size: 25px;
-        color: #f5f5f5;
+        color: black;
         text-align: center;
         margin-bottom: 30px;
     }
     .form-group{
-        border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #00439d;
         margin-top: 15px;
         margin-bottom: 20px;
         display: flex;
     }
     .form-group i{
-        color: #fff;
+        /* color: #fff; */
         font-size: 14px;
         padding-top: 5px;
         padding-right: 10px;
@@ -78,11 +79,8 @@
         background: transparent;
         border: 0;
         outline: 0;
-        color: #f5f5f5;
+        /* color: #f5f5f5; */
         flex-grow: 1;
-    }
-    .form-input::placeholder{
-        color: #f5f5f5;
     }
     #eye i{
         padding-right: 0;
@@ -90,9 +88,9 @@
     }
     
     .form-submit{
-        background: transparent;
-        border: 1px solid #f5f5f5;
-        color: #fff;
+        border: 1px solid #00439d;
+        background-color: #00439d;
+        color: white;
         width: 100%;
         text-transform: uppercase;
         padding: 6px 10px;
@@ -100,7 +98,9 @@
         margin-top: 30px;
     }
     .form-submit:hover{
-        border: 1px solid #54a0ff;
+        color: black;
+        border: 1px solid #00439d;
+        background-color: white;
     }
     .alert_message.error{
         color: red
@@ -115,10 +115,10 @@
     <header id="header">
         <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="header_top">
+            <div class="header_top" style="background-color: #00439d;">
             <div class="header_top_left">
                 <ul class="top_nav">
-                <li><a href="../index.php">Trang chủ</a></li>
+                <li><a href="../index.php" style="border-right: none">Trang chủ</a></li>
                 </ul>
             </div>
             <div class="header_top_right">
@@ -135,25 +135,25 @@
         </div>
     </header>
     <section id="navArea">
-        <nav class="navbar navbar-inverse" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation" style="background-color: #00439d;">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav main_nav">
             <li class="active"><a href="../index.php"><span class="fa fa-home desktop-home"></span><span class="mobile-show">Home</span></a></li>
-            <li><a href="#">Giới thiệu</a></li>
-            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tuyển sinh</a>
+            <li><a style="border-left: none; text-shadow: none" href="#">Giới thiệu</a></li>
+            <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="border-left: none; text-shadow: none">Tuyển sinh</a>
                 <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Học bổng</a></li>
                 <li><a href="#">Học phí</a></li>
                 <li><a href="#">Tư vấn nhập học</a></li>
                 </ul>
             </li>
-            <li><a href="#">Tin tức</a></li>
-            <li><a href="#">Câu lạc bộ</a></li>
-            <li><a href="pages/contact.html">Liên hệ</a></li>
-            <li><a href="./teacher/authenticate/login_page.php">Đăng nhập</a></li>
+            <li><a style="border-left: none; text-shadow: none" href="#">Tin tức</a></li>
+            <li><a style="border-left: none; text-shadow: none" href="#">Câu lạc bộ</a></li>
+            <li><a style="border-left: none; text-shadow: none" href="pages/contact.html">Liên hệ</a></li>
+            <li><a style="border-left: none; text-shadow: none" href="./teacher/authenticate/login_page.php">Đăng nhập</a></li>
             </ul>
         </div>
         </nav>
@@ -165,7 +165,7 @@
   <div style="text-align: center;">
   <div id="wrapper">
         <form action="<?= ROOT_URL?>authenticate/login.php" id="form-login" method="POST">
-            <h1 class="form-heading">Đăng nhập</h1>
+            <img src="../images/eduLogoNoName.png" width="150px" alt="">
             <?php if (isset($_SESSION['signup-success'])) : ?>
                 <div class="alert_message succes">
                     <p>
@@ -184,17 +184,17 @@
                 </div>
             <?php endif ?>
             <div class="form-group">
-                <i class="far fa-user"></i>
+                <!-- <i class="far fa-user"></i> -->
                 <input value="<?= $email ?>" name="email" type="text" class="form-input" placeholder="Tên đăng nhập">
             </div>
             <div class="form-group">
-                <i class="fas fa-key"></i>
+                <!-- <i class="fas fa-key"></i> -->
                 <input name="password" value="<?= $password ?>" type="password" class="form-input" placeholder="Mật khẩu">
                 <div id="eye">
                     <i class="far fa-eye"></i>
                 </div>
             </div>
-            <div class="form-group">
+            <div style="padding-bottom: 20px;">
                 <select class="form-control" name="role" id="exampleFormControlSelect1">
                     <option disabled selected hidden>Chọn vai trò</option>
                     <option value="1">Học sinh</option>
