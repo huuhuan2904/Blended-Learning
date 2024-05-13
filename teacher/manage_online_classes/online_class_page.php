@@ -34,13 +34,107 @@
 <body>
     <div class="container" style="max-width: 2140px;">
         <?php
+            $class_results = [];
             if ($Class_result->num_rows > 0) {
+                echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick=\"location.href='index.php?page=online_class_page'\" type='button'>Tất cả  <i class=\"fa-solid fa-caret-down\"></i></button>";
                 while($row = $Class_result->fetch_assoc()) {
-                    echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>".$row['class_name']."  <i class=\"fa-solid fa-caret-down\"></i></button>";
+                    $class_results[] = $row;
+                    echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>".$row['class_name']."  <i class=\"fa-solid fa-caret-down\"></i></button>";                
                 }
             }
         ?>
-        <div class="assignmentTable"></div>
+
+        <div style='margin-top: 10px;'>
+            <table style="text-align: center" class="table">
+            <?php 
+            foreach ($class_results as $row) {
+                $Online_class_result = mysqli_query($conn,' SELECT *, online_class.id AS online_id, lessons.name AS lesson_name
+                                                            FROM online_class
+                                                            JOIN lesson_day ON online_class.lesson_day_id = lesson_day.id
+                                                            JOIN lessons ON lesson_day.lesson_id = lessons.id
+                                                            JOIN days_assignment ON lesson_day.days_ass_id = days_assignment.id
+                                                            JOIN days ON days_assignment.day = days.id
+                                                            JOIN assignment ON days_assignment.assignment_id = assignment.id
+                                                            JOIN class ON assignment.class_id = class.id
+                                                            WHERE days_assignment.assignment_id = '.$row['id'].'
+                                                            AND days_assignment.start_date >= CURDATE()
+                                                            LIMIT 1;'); 
+                if ($Online_class_result->num_rows > 0) {
+                        foreach($Online_class_result as $row2){ 
+                            $formattedStartTime = date("H:i", strtotime($row2['start_time']));
+                            $formattedEndTime = date("H:i", strtotime($row2['end_time'])); ?>
+                            <tbody>
+                            <tr class="table-success">
+                                <th>Lịch dạy tiếp theo:</th>
+                                <td><?php echo $row2['class_name'] ?></td>
+                                <td><?php echo $row2['lesson_name'] . "<br>(".$formattedStartTime." - ".$formattedEndTime.")"?></td>
+                                <td><?php echo $row2['start_date'] . " (" . $row2['name'] . ")" ?></td>
+                                <td><a href="<?php echo $row2['link'] ?>" target="blank"><?php echo $row2['link'] ?></a></td>
+                            </tr>
+                            </tbody>
+                    <?php } 
+                    }
+                }?>
+            </table>
+        </div>
+        <br>
+        
+        <div class="assignmentTable" style='margin-top: 10px;'>
+            <table style="text-align: center" class="table">
+                <thead>
+                    <tr class="title_style">
+                        <th> Lớp </th>
+                        <th> Tiết </th>
+                        <th> Ngày </th>
+                        <th> Link phòng </th>
+                        <th> Thao tác </th>
+                    </tr>
+                </thead>
+            <?php 
+            foreach ($class_results as $row) {
+                $Online_class_result = mysqli_query($conn,' SELECT * , online_class.id as online_id, lessons.name as lesson_name
+                                                            FROM online_class
+                                                            JOIN lesson_day ON online_class.lesson_day_id = lesson_day.id
+                                                            JOIN lessons ON lesson_day.lesson_id = lessons.id
+                                                            JOIN days_assignment ON lesson_day.days_ass_id = days_assignment.id
+                                                            JOIN days ON days_assignment.day = days.id
+                                                            JOIN assignment ON days_assignment.assignment_id = assignment.id
+                                                            JOIN class ON assignment.class_id = class.id
+                                                            WHERE days_assignment.assignment_id = '.$row['id'].'
+                                                            ORDER BY days_assignment.start_date ASC '); 
+                if ($Online_class_result->num_rows > 0) {
+                        foreach($Online_class_result as $row2){ 
+                            $formattedStartTime = date("H:i", strtotime($row2['start_time']));
+                            $formattedEndTime = date("H:i", strtotime($row2['end_time'])); ?>
+                            <tbody>
+                            <!-- kiểm tra nếu ngày trong start_date là quá khứ và khác ngày hiện tại thì hiện màu đỏ -->
+                            <tr <?php echo (strtotime($row2['start_date']) < time() && date('Y-m-d', strtotime($row2['start_date'])) !== date('Y-m-d')) ? 'class="table-danger"' : ''; ?>>
+                                <td><?php echo $row2['class_name'] ?></td>
+                                <td><?php echo $row2['lesson_name'] . "<br>(".$formattedStartTime." - ".$formattedEndTime.")"?></td>
+                                <td><?php echo $row2['start_date'] . " (" . $row2['name'] . ")" ?></td>
+                                <td><a href="<?php echo $row2['link'] ?>" target="blank"><?php echo $row2['link'] ?></a></td>
+                                <td>
+                                    <?php if (strtotime($row2['start_date']) < time() && date('Y-m-d', strtotime($row2['start_date'])) !== date('Y-m-d')): ?>
+                                        <div class="btn-group d-none">
+                                    <?php else: ?>
+                                        <div class="btn-group">
+                                    <?php endif; ?>
+                                        <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-gear"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a><button type="button" class="dropdown-item" onclick="editOnlineClass(<?php echo $row2['online_id'] ?>,<?php echo $row2['lesson_day_id'] ?>)"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
+                                            <a><button type="button" class="dropdown-item" onclick="deleteOnlineClass(<?php echo $row2['online_id'] ?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                    <?php } 
+                    }
+                }?>
+            </table>
+        </div>
     </div>
 
     <div class="modal fade" id="editHomeworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -76,6 +170,59 @@
         $(".assignmentTable").html(result);
       }
     })
+}
+</script>
+<script>
+    function editOnlineClass(onlineId,lessonDayId) {
+        $.ajax({
+            url: "manage_online_classes/edit_class_modal.php",
+            method: 'post',
+            data: {
+                online_id: onlineId,
+                lessonDay_id: lessonDayId,
+            },
+            success: function(result) {
+                $(".modal-body2").html(result);
+                $('#editHomeworkModal').modal('show'); 
+            }
+        })
+    }
+</script>
+<script>
+function deleteOnlineClass(onlineId) {
+    $.ajax({
+        url: "manage_online_classes/delete_class.php",
+        method: 'post',
+        data: {
+            online_id: onlineId
+        },
+        success: function(result) {
+            if (result.trim() === "1") {
+                var url = "./index.php?page=homework_page";
+                window.location.href = url;
+            } else {
+                toastr.options = {
+                "closeButton": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                }
+                $(document).ready(function onDocumentReady() {  
+                    toastr.error("Không có thông tin gì thay đổi");
+                });
+            }
+        }
+    });
 }
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

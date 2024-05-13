@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/style.css">
+    <!-- <link rel="stylesheet" href="../../css/style.css"> -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
@@ -34,17 +34,95 @@
 <body>
     <div class="container" style="max-width: 2140px;">
         <?php
+            $class_results = [];
             if ($Class_result->num_rows > 0) {
+                echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick=\"location.href='index.php?page=homework_page'\" type='button'>Tất cả  <i class=\"fa-solid fa-caret-down\"></i></button>";
                 while($row = $Class_result->fetch_assoc()) {
+                    $class_results[] = $row;
                     echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].", ".$row['class_id'].");'>".$row['class_name']." <i class=\"fa-solid fa-caret-down\"></i></button>";
                 }
             }
         ?>
-        <div class="assignmentTable"></div>
+        <div class="assignmentTable" style='margin-top: 10px;'>
+            <table style="text-align: center" class="table">
+                <thead>
+                    <tr class="title_style">
+                        <th> Học liệu </th>
+                        <th> Tiêu đề </th>
+                        <th> Nội dung </th>
+                        <th> Ngày bắt đầu </th>
+                        <th> Ngày kết thúc </th>
+                        <th> Ngày giao </th>
+                        <th> Tiết </th>
+                        <th> Thao tác </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php 
+                foreach($class_results as $row){
+                    $Homework_result = mysqli_query($conn,' SELECT * , homework.id as homework_id, homework.start_date AS start, homework.end_date AS deadline, lessons.name as lesson_name
+                                                            FROM homework
+                                                            JOIN lesson_day ON homework.lesson_day_id = lesson_day.id
+                                                            JOIN lessons ON lesson_day.lesson_id = lessons.id
+                                                            JOIN days_assignment ON lesson_day.days_ass_id = days_assignment.id
+                                                            JOIN days ON days_assignment.day = days.id
+                                                            JOIN assignment ON days_assignment.assignment_id = assignment.id
+                                                            JOIN class ON assignment.class_id = class.id
+                                                            WHERE days_assignment.assignment_id = '.$row['id'].'');
+                        if ($Homework_result->num_rows > 0) {
+                            foreach($Homework_result as $row2){ ?>
+                            <!-- kiểm tra nếu ngày trong start_date là quá khứ và khác ngày hiện tại thì hiện màu đỏ -->
+                            <tr <?php echo (strtotime($row2['deadline']) < time() && date('Y-m-d', strtotime($row2['deadline'])) !== date('Y-m-d')) ? 'class="table-danger"' : ''; ?>>
+                                <td><?php echo $row2['type']?></td>
+                                <td><?php echo $row2['title']?></td>
+                                <td><?php echo $row2['content']?></td>
+                                <?php if($row2['start'] == '0000-00-00'){ ?>
+                                    <td></td>
+                                    <td></td>
+                                <?php }else{ ?>
+                                    <td><?php echo $row2['start']?></td>
+                                    <td><?php echo $row2['deadline']?></td>
+                                <?php } ?>
+                                        <td><?php echo $row2['homework_day'] ?></td>
+                                        <td><?php echo $row2['lesson_name'] ?></td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
+                                                    <i class="fa-solid fa-gear"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <?php if (strtotime($row2['deadline']) > time() || date('Y-m-d', strtotime($row2['deadline'])) === date('Y-m-d')) : ?>
+                                                        <a><button type="button" class="dropdown-item" onclick="editHomework(<?php echo $row2['homework_id']?>)"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
+                                                        <a><button type="button" class="dropdown-item" onclick="deleteHomework(<?php echo $row2['homework_id']?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                                                        <a>
+                                                            <form action="index.php?page=homework_details" method="POST">
+                                                                <input type="hidden" name="homeworkId" id="homeworkId" value="<?php echo $row2['homework_id']?>">
+                                                                <input type="hidden" name="classId" id="classId" value="<?php echo $row['class_id'] ?>">
+                                                                <button type="submit" class="dropdown-item"><i class="fa-solid fa-magnifying-glass"></i> Chi tiết</button>
+                                                            </form>
+                                                        </a>
+                                                    <?php else: ?>
+                                                        <a>
+                                                            <form action="index.php?page=homework_details" method="POST">
+                                                                <input type="hidden" name="homeworkId" id="homeworkId" value="<?php echo $row2['homework_id']?>">
+                                                                <input type="hidden" name="classId" id="classId" value="<?php echo $row['class_id'] ?>">
+                                                                <button type="submit" class="dropdown-item"><i class="fa-solid fa-magnifying-glass"></i> Chi tiết</button>
+                                                            </form>
+                                                        </a>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        </td>
+                            </tr>
+                        <?php } 
+                        }
+                }?>
+            </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="modal fade" id="editHomeworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="editHomeworkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div style="max-width: 1300px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -76,6 +154,74 @@
       success: function(result) {
         $(".assignmentTable").html(result);
       }
+    })
+}
+</script>
+<script>
+function editHomework(id) {
+    console.log('asdasd');
+    $.ajax({
+        url: "homework_list/edit_homework_modal.php",
+        method: 'post',
+        data: {
+            homework_id: id,
+        },
+        success: function(result) {
+            $(".modal-body2").html(result);
+            $('#editHomeworkModal').modal('show');
+        }
+    })
+}
+</script>
+<script>
+function deleteHomework(id) {
+    $.ajax({
+        url: "homework_list/delete_homework.php",
+        method: 'post',
+        data: {
+            homework_id: id,
+        },
+        success: function(result) {
+            if (result.trim() === "1") {
+                var url = "./index.php?page=homework_page";
+                window.location.href = url;
+            } else {
+                toastr.options = {
+                    "closeButton": true,
+                    "newestOnTop": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                $(document).ready(function onDocumentReady() {
+                    toastr.error("Lỗi");
+                });
+            }
+        }
+    });
+}
+</script>
+<script>
+function detailsHomework(id) {
+    $.ajax({
+        url: "homework_list/homework_details.php",
+        method: 'post',
+        data: {
+            homework_id: id,
+        },
+        success: function(result) {
+            $(".modal-body2").html(result);
+            $('#editHomeworkModal').modal('show');
+        }
     })
 }
 </script>
