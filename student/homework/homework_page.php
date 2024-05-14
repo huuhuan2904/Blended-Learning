@@ -36,13 +36,20 @@
     <style>
         .container2 .card-group{
             display: flex;
-            height: 80vh;
+            height: 70vh;
         }
         .container2 .card-group .card{
             margin-right: 30px;
         }
 
     </style>
+    <div class="input-field" style="text-align: right;">
+        <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm...">
+        <input class="classId" name="classId" type="hidden" value="<?php echo $Class_id ?>">
+        <button id="searchBtn" class="btn btn-outline-primary" type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+    </div>
     <div class="container2" >
         <div class="card-group">
             <?php foreach($Homework_result as $row): ?>
@@ -108,4 +115,20 @@ function homeworkDetails(id, subject, teacher, type, filename, filepath, title, 
         },
     })
 }
+</script>
+<script>
+    $(document).ready(function(){
+        $('#searchBtn').click(function(){
+            $.ajax({url:"homework/search_homework.php",
+            method: 'get',
+            data:{
+                key: $(".search").val(),
+                classId: $(".classId").val()
+            },
+            success: function(result) {
+               $(".container2").html(result);  
+            }
+            })
+        });
+    });
 </script>

@@ -49,6 +49,7 @@
             <table style="text-align: center" class="table">
             <?php 
                 $class_ids_str = implode(',', $class_ids);
+                //nếu DATE đầu tiên là start_date trùng current date(case 1) hoặc k trùng và có ngày gần nhất với cur date thì sẽ lấy(case 2)
                 $Online_class_result = mysqli_query($conn,' SELECT *, online_class.id AS online_id, lessons.name AS lesson_name
                                                             FROM online_class
                                                             JOIN lesson_day ON online_class.lesson_day_id = lesson_day.id
@@ -58,9 +59,24 @@
                                                             JOIN assignment ON days_assignment.assignment_id = assignment.id
                                                             JOIN class ON assignment.class_id = class.id
                                                             WHERE days_assignment.assignment_id IN ('.$class_ids_str.')
-                                                            AND (DATE(days_assignment.start_date) = CURDATE() OR DATE(days_assignment.start_date) > CURDATE())
-                                                            ORDER BY DATE(days_assignment.start_date) ASC
-                                                            LIMIT 1;'); 
+                                                            AND (
+                                                                DATE(days_assignment.start_date) = CURDATE()
+                                                                OR (
+                                                                    NOT EXISTS (
+                                                                        SELECT 1
+                                                                        FROM days_assignment
+                                                                        WHERE DATE(start_date) = CURDATE()
+                                                                        AND assignment_id IN ('.$class_ids_str.')
+                                                                    )
+                                                                    AND DATE(days_assignment.start_date) = (
+                                                                        SELECT MIN(DATE(start_date))
+                                                                        FROM days_assignment
+                                                                        WHERE DATE(start_date) > CURDATE()
+                                                                        AND assignment_id IN ('.$class_ids_str.')
+                                                                    )
+                                                                )
+                                                            )
+                                                            ORDER BY DATE(days_assignment.start_date) ASC;'); 
                 if ($Online_class_result->num_rows > 0) {
                         foreach($Online_class_result as $row2){ 
                             $formattedStartTime = date("H:i", strtotime($row2['start_time']));
