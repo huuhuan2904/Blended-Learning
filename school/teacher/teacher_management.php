@@ -1,6 +1,7 @@
 <?php 
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
-$query = "select teachers.*, logins.* , teachers.id as teachers_id from teachers join logins on teachers.login_id = logins.id";
+$query = "  SELECT teachers.*, logins.* , teachers.id as teachers_id 
+            from teachers join logins on teachers.login_id = logins.id";
 $result = mysqli_query($conn,$query);
 
 ?>

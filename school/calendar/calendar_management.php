@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var result = data;
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
+        initialView: 'timeGridWeek',
         initialDate: '<?=date('Y-m-d')?>',
         headerToolbar: {
           left: 'prev,next today',

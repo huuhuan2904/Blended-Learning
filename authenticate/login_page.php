@@ -194,13 +194,13 @@
                     <i class="far fa-eye"></i>
                 </div>
             </div>
-            <div style="padding-bottom: 20px;">
+            <!-- <div style="padding-bottom: 20px;">
                 <select class="form-control" name="role" id="exampleFormControlSelect1">
                     <option disabled selected hidden>Chọn vai trò</option>
                     <option value="1">Học sinh</option>
                     <option value="2">Giáo viên</option>
                 </select>
-            </div>
+            </div> -->
             <button name="submit" value="Đăng nhập" class="form-submit">Đăng nhập</button>
         </form>
     </div>

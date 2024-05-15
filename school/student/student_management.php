@@ -1,6 +1,7 @@
 <?php 
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
-$query = "select students.*, logins.* , students.id as students_id from students join logins on students.login_id = logins.id";
+$query = "SELECT students.*, logins.* , students.id as students_id 
+          from students join logins on students.login_id = logins.id";
 $result = mysqli_query($conn,$query);
 
 ?>
@@ -35,7 +36,36 @@ $result = mysqli_query($conn,$query);
   <link href="../../css/responsive.css" rel="stylesheet" />
 
 </head>
-
+<style>
+        .table_data {
+            width: 100%;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 8px;
+            text-align: center;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+    </style>
 <body>
     <?php
       if(isset($_GET['msg'])){
@@ -146,7 +176,19 @@ $result = mysqli_query($conn,$query);
             <th> Xóa </th>
           </tr>
             <?php 
-                $filter_data = "Select students.*, logins.* , students.id as students_id from students join logins on students.login_id = logins.id";
+                $limit = 10; // Số bản ghi trên mỗi trang
+                $page = isset($_GET['pagination']) && is_numeric($_GET['pagination']) ? (int)$_GET['pagination'] : 1;
+                $page = max($page, 1); // Đảm bảo $page >= 1
+                $start = ($page - 1) * $limit;
+                
+                $result = $conn->query("SELECT COUNT(*) AS total FROM students");
+                $total_records = $result->fetch_assoc()['total'];
+                $total_pages = ceil($total_records / $limit);
+
+                $filter_data = "SELECT students.*, logins.* , students.id as students_id from students 
+                                join logins on students.login_id = logins.id
+                                ORDER BY students.first_name COLLATE utf8mb4_unicode_ci
+                                LIMIT $start, $limit";
                 $query_run = mysqli_query($conn,$filter_data);
 
                 if(mysqli_num_rows($query_run) > 0){
@@ -181,9 +223,20 @@ $result = mysqli_query($conn,$query);
                 }
               ?>                                                              
         </table>
+        <div class="pagination">
+          <?php if($page > 1): ?>
+              <a href="index.php?page=student_management&pagination=<?php echo $page-1; ?>">&laquo; Trước</a>
+          <?php endif; ?>
+
+          <?php for($i = 1; $i <= $total_pages; $i++): ?>
+              <a class="<?php if($page == $i) echo 'active'; ?>" href="index.php?page=student_management&pagination=<?php echo $i; ?>"><?php echo $i; ?></a>
+          <?php endfor; ?>
+
+          <?php if($page < $total_pages): ?>
+              <a href="index.php?page=student_management&pagination=<?php echo $page+1; ?>">Sau &raquo;</a>
+          <?php endif; ?>
         </div>
       </div>
-
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap JS -->
@@ -238,7 +291,11 @@ $result = mysqli_query($conn,$query);
             method: 'get',
             data:{key:$(".search").val()},
             success: function(result) {
-               $(".table_data").html(result);  
+              if(result == 1){
+                window.location.href = "./index.php?page=student_management";
+              }else{
+                $(".table_data").html(result);  
+              }
             }
             })
         });

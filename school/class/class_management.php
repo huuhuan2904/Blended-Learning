@@ -236,7 +236,8 @@ foreach($resultClassId as $row){
                 $filter_data = "SELECT DISTINCT class_students.class_id, class_students.teacher_id, class.class_name, teachers.name, teachers.id
                                   FROM class_students
                                   JOIN class ON class_students.class_id = class.id
-                                  JOIN teachers ON class_students.teacher_id = teachers.id";
+                                  JOIN teachers ON class_students.teacher_id = teachers.id
+                                  ORDER BY class.class_name COLLATE utf8mb4_unicode_ci";
                 $query_run = mysqli_query($conn,$filter_data);
                 if(mysqli_num_rows($query_run) > 0){
                   foreach($query_run as $row)

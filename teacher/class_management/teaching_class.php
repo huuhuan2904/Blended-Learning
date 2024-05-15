@@ -28,27 +28,58 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
     <div class="container" style="max-width: 2140px;">
-        <form action="profile/edit_profile" method="POST">
-            <div class="form first">
-                <div class="fields">
-                    <div class="input-field">
-                        <label>Lớp học</label>
-                        <select name="class" id="class" onchange="selectedClass(value);" required>
-                            <option disabled selected>Chọn Lớp học</option>
-                            <?php
-                                if ($Class_result->num_rows > 0) {
-                                    while($row = $Class_result->fetch_assoc()) {
-                                        echo "<option value='" . $row['class_id'] . "'>" . $row['class_name'] . "</option>";
-                                    }
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    
-                </div>
-            </div>
-        </form>
-        <div class="assignmentTable"></div>
+        <?php
+            $class_results = array();
+            if ($Class_result->num_rows > 0) {
+                echo "<button class='btn btn-warning' style='margin-right: 10px;' onclick=\"location.href='index.php?page=teaching_class'\" type='button'>Tải lại  <i class=\"fa-solid fa-rotate-right\"></i></button>";
+                while($row = $Class_result->fetch_assoc()) {
+                    $class_results[] = $row;
+                    echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['class_id'].");'>".$row['class_name']."  <i class=\"fa-solid fa-caret-down\"></i></button>";                
+                }
+            }
+        ?>
+        <div class="assignmentTable" style='margin-top: 10px;'>
+            <table style="text-align: center" class="table">
+                <thead>
+                    <tr class="title_style">
+                        <th> Lớp </th>
+                        <th> Họ và tên đệm </th>
+                        <th> Tên </th>
+                        <th> Ngày sinh </th>
+                        <th> Giới tính </th>
+                        <th> Địa chỉ </th>
+                        <th> Số điện thoại </th>
+                        <th> Dân tộc </th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php 
+                $class_all = array();
+                $firstRow = true;
+                foreach($class_results as $row){
+                    $Assignment_result = mysqli_query($conn,'   SELECT class_students.student_id, students.*
+                                                                from class_students 
+                                                                join students on class_students.student_id = students.id
+                                                                where class_students.class_id = '.$row['class_id'].'
+                                                                ORDER BY students.first_name');
+                        if ($Assignment_result->num_rows > 0) {
+                            foreach($Assignment_result as $row2){ ?>
+                                <tr>
+                                    <th><?php echo $row['class_name'] ?></th>
+                                    <td><?php echo $row2['last_name']?></td>
+                                    <td><?php echo $row2['first_name']?></td>
+                                    <td><?php echo date('d-m-Y', strtotime($row2['dob'])); ?></td>
+                                    <td><?php echo $row2['gender']?></td>
+                                    <td><?php echo $row2['address']?></td>
+                                    <td><?php echo $row2['phone']?></td>
+                                    <td><?php echo $row2['nation']?></td>
+                                </tr>
+                        <?php } 
+                        }
+                }?>
+            </tbody>
+            </table>
+        </div>
     </div>
 <body>
 

@@ -100,7 +100,8 @@
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand navbar-white navbar-light"></nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a class="logo" href="index.php"><span>THPT Vĩnh Lộc</span></a>
+            <div style="text-align: center; padding: 10px"><a class="logo" href="index.php"><img src="../images/Education_Logo.png" width="70px" alt=""></a></div>
+            
             <div class="sidebar">
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
@@ -127,31 +128,39 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="index.php?page=teacher_management" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa-solid fa-chalkboard-user"></i>
                                         <p>Quản lý giáo viên</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="index.php?page=student_management" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                    <i class="fa-solid fa-graduation-cap"></i>
                                         <p>Quản lý học sinh</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="index.php?page=class_management" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa-solid fa-person-shelter"></i>
                                         <p>Quản lý lớp học</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="index.php?page=teaching_assignment" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fa-solid fa-people-roof"></i>
                                         <p>Phân công giảng dạy</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="index.php?page=calendar_management" class="nav-link">
+                                        <i class="fa-regular fa-calendar-days"></i>
+                                        <p>Quản lý lịch
+                                            <!-- <span class="badge badge-info right">2</span> -->
+                                        </p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
                                 <p>
@@ -159,18 +168,9 @@
                                     <span class="right badge badge-danger">New</span>
                                 </p>
                             </a>
-                        </li>
-                        <li class="nav-header">EXAMPLES</li>
-                        <li class="nav-item">
-                            <a href="index.php?page=calendar_management" class="nav-link">
-                                <i class="nav-icon far fa-calendar-alt"></i>
-                                <p>
-                                    Calendar
-                                    <span class="badge badge-info right">2</span>
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        </li> -->
+                        <!-- <li class="nav-header">EXAMPLES</li> -->
+                        <!-- <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
                                 <p>
@@ -204,7 +204,7 @@
                                 <i class="nav-icon far fa-circle text-info"></i>
                                 <p>Informational</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
             </div>
