@@ -158,6 +158,13 @@
                                         </p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="../authenticate/logout.php" class="nav-link">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        <p>Đăng xuất
+                                        </p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <!-- <li class="nav-item">
@@ -214,7 +221,7 @@
 
     <script>
     </script>
-    <script src="../js/jquery-ui.min.js"></script>
+    <!-- <script src="../js/jquery-ui.min.js"></script>
     <script src="../js/jquery.min.js"></script>
     <script src="../js/Chart.min.js"></script>
     <script src="../js/sparkline.js"></script>
@@ -228,7 +235,7 @@
     <script src="../js/jquery.overlayScrollbars.min.js"></script>
     <script src="../js/adminlte.js?v=3.2.0"></script>
     <script src="../js/demo.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="../js/dashboard.js"></script> -->
 </body>
 
 </html>

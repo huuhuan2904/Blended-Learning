@@ -247,7 +247,7 @@
                     </div>
                     <div class="input-field">
                         <label>Mật khẩu</label>
-                        <input disabled value="<?php echo $row['password'] ?>" name="password" id="password" type="text"
+                        <input disabled value="<?php echo $row['password'] ?>" name="password" id="password" type="password"
                             placeholder="Nhập mật khẩu" required>
                     </div>
                     <?php }?>

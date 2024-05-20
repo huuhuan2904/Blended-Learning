@@ -54,15 +54,14 @@ foreach($resultClassId as $row){
     <link href="../../css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="../../css/responsive.css" rel="stylesheet" />
-
 </head>
 
 <body>
         <div class="input-field" style="text-align: right;">
-            <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm...">
+            <!-- <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm...">
             <button style="margin-right: 40px" id="searchBtn" class="btn btn-outline-primary" type="submit">
                 <i class="fa fa-search"></i>
-            </button>
+            </button> -->
             <button type="button" id="addClass" class="btn btn-success" data-toggle="modal" data-target="#myModal">Thêm lớp học</button>
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal">Thêm học sinh</button>
         </div>
@@ -223,15 +222,17 @@ foreach($resultClassId as $row){
                 </div>
             </div>
         </div>
-
         <!-- data table -->
-                    <div  class="table_data">
-                        <table style="text-align: center" class="table table-bordered">
-                            <tr class="title_style" style="background-color: #007BFF; color: white">
-                                <th> Tên lớp </th>
-                                <th> Giáo viên chủ nhiệm </th>
-                                <th> Học sinh </th>
+                    <div  class="table_data" style="padding-top: 10px">
+                        <table style="text-align: center" class="table table-bordered" id="myTable">
+                        <thead>
+                            <tr style="background-color: #007BFF; color: white">
+                                <th style="text-align: center">Tên lớp</th>
+                                <th style="text-align: center">Giáo viên chủ nhiệm</th>
+                                <th style="text-align: center">Học sinh</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             <?php 
                 $filter_data = "SELECT DISTINCT class_students.class_id, class_students.teacher_id, class.class_name, teachers.name, teachers.id
                                   FROM class_students
@@ -259,18 +260,14 @@ foreach($resultClassId as $row){
                                 </button>
                             </td>
                         </tr>
-                        <?php
+                    <?php
                     }
-                }else{
-                  ?>    
-                    <tr>
-                        <td colspan="4">Không tìm thấy</td>
-                    </tr>
-                <?php
                 }
-            ?>
-                        </table>
-
+            ?>                    
+            </tbody>
+        </table>
+    </div>
+    
         <!-- Modal -->
         <div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
@@ -289,12 +286,12 @@ foreach($resultClassId as $row){
                 </div>
             </div>
         </div>
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Bootstrap JS -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     $(document).ready(function(){
@@ -310,7 +307,8 @@ foreach($resultClassId as $row){
         });
     });
 </script>
-<script>
+
+<!-- <script>
     $(document).ready(function(){
         $('#searchBtn').click(function(){
             $.ajax({url:"class/search.php",
@@ -322,5 +320,5 @@ foreach($resultClassId as $row){
             })
         });
     });
-</script>
+</script> -->
 </html>

@@ -8,7 +8,8 @@
                         FROM class_students
                         JOIN class ON class_students.class_id = class.id
                         JOIN teachers ON class_students.teacher_id = teachers.id 
-                        where CONCAT(class_name, name) LIKE '%$key%'";
+                        where CONCAT(class_name, name) LIKE '%$key%'
+                        ORDER BY class.class_name COLLATE utf8mb4_unicode_ci";
         $query_run = mysqli_query($conn,$filter_data);
         
         $output .='<table style="text-align: center" class="table table-bordered">
@@ -69,7 +70,8 @@
             $filter_data = "SELECT DISTINCT class_students.class_id, class_students.teacher_id, class.class_name, teachers.name, teachers.id
                             FROM class_students
                             JOIN class ON class_students.class_id = class.id
-                            JOIN teachers ON class_students.teacher_id = teachers.id";
+                            JOIN teachers ON class_students.teacher_id = teachers.id
+                            ORDER BY class.class_name COLLATE utf8mb4_unicode_ci";
         $query_run = mysqli_query($conn,$filter_data);
         
         $output .='<table style="text-align: center" class="table table-bordered">

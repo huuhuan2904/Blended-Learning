@@ -17,12 +17,26 @@ echo $output;
       var calendarEl = document.getElementById('OnlClassCalendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        locale: 'vi',
         initialDate: '<?=date('Y-m-d')?>',
         height: 600,
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        },
+        buttonText: {
+            today: 'Hôm nay',
+            month: 'Tháng',
+            week: 'Tuần',
+            day: 'Ngày'
+        },
+        locale: {
+          code: 'vi',
+          allDayText: 'Cả ngày'
+        },
+        moreLinkText: function(num) {
+          return "xem thêm ";
         },
         selectable: true,
         selectHelper: true,

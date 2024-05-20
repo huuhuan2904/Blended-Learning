@@ -37,7 +37,36 @@ $result = mysqli_query($conn,$query);
     <link href="../../css/responsive.css" rel="stylesheet" />
 
 </head>
-
+<style>
+    .table_data {
+            width: 100%;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        padding: 8px;
+        text-align: center;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination a {
+        margin: 0 5px;
+        padding: 8px 16px;
+        text-decoration: none;
+        border: 1px solid #ddd;
+        color: #333;
+    }
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 1px solid #4CAF50;
+    }
+</style>
 <body>
     <!-- service section -->
 
@@ -48,10 +77,10 @@ $result = mysqli_query($conn,$query);
             }
         ?>
         <div class="input-field" style="text-align: right;">
-            <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm...">
+            <!-- <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm...">
             <button style="margin-right: 40px" id="searchBtn" class="btn btn-outline-primary" type="submit">
                 <i class="fa fa-search"></i>
-            </button>
+            </button> -->
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Thêm giáo viên</button>
         </div>
 
@@ -134,19 +163,23 @@ $result = mysqli_query($conn,$query);
 
         <!-- data table -->
       <div class="table_data">
-        <table style="text-align: center" class="table table-bordered">
+        <table style="text-align: center" class="table table-bordered" id="myTable">
+            <thead>
             <tr class="title_style" style="background-color: #007BFF; color: white">
-                <th> Họ tên </th>
-                <th> Ngày sinh </th>
-                <th> Giới tính </th>
-                <th> Địa chỉ </th>
-                <th> Số điện thoại </th>
-                <th> Email </th>
-                <th> Sửa </th>
-                <th> Xóa </th>
+                <th style="text-align: center"> Họ tên </th>
+                <th style="text-align: center"> Ngày sinh </th>
+                <th style="text-align: center"> Giới tính </th>
+                <th style="text-align: center"> Địa chỉ </th>
+                <th style="text-align: center"> Số điện thoại </th>
+                <th style="text-align: center"> Email </th>
+                <th style="text-align: center"> Sửa </th>
+                <th style="text-align: center"> Xóa </th>
             </tr>
+            </thead>
+            <tbody>
             <?php 
-                $filter_data = "Select teachers.*, logins.* , teachers.id as teachers_id from teachers join logins on teachers.login_id = logins.id";
+                $filter_data = "SELECT teachers.*, logins.* , teachers.id as teachers_id 
+                                from teachers join logins on teachers.login_id = logins.id";
                 $query_run = mysqli_query($conn,$filter_data);
                 if(mysqli_num_rows($query_run) > 0){
                   foreach($query_run as $row)
@@ -176,6 +209,7 @@ $result = mysqli_query($conn,$query);
                   }
                 }
             ?>
+        </tbody>
         </table>
       </div>
 
@@ -223,18 +257,21 @@ function deleteTeacher(teacherId) {
     });
 }
 </script>
-
-<script>
+<!-- <script>
     $(document).ready(function(){
         $('#searchBtn').click(function(){
             $.ajax({url:"teacher/search.php",
             method: 'get',
             data:{key:$(".search").val()},
             success: function(result) {
-               $(".table_data").html(result);  
+                if(result == 1){
+                    window.location.href = "./index.php?page=teacher_management";
+                }else{
+                    $(".table_data").html(result); 
+                }
             }
             })
         });
     });
-</script>
+</script> -->
 </html>

@@ -246,11 +246,25 @@ document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
+        locale: 'vi',
         initialDate: '<?=date('Y-m-d')?>',
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        },
+        buttonText: {
+            today: 'Hôm nay',
+            month: 'Tháng',
+            week: 'Tuần',
+            day: 'Ngày'
+        },
+        locale: {
+          code: 'vi',
+          allDayText: 'Cả ngày'
+        },
+        moreLinkText: function(num) {
+          return "xem thêm ";
         },
         selectable: true,
         selectHelper: true,

@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="../css/daterangepicker.css">
     <link rel="stylesheet" href="../css/summernote-bs4.min.css">
     <link href="../css/style.css" rel="stylesheet" />
+    <!-- data table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
     <style>
     .logo span {
         color: white;
@@ -38,7 +40,7 @@
         margin: 45px;
     }
     </style>
-    <script nonce="fba944bd-8852-4e44-b980-94d5d1c099ac">
+    <!-- <script nonce="fba944bd-8852-4e44-b980-94d5d1c099ac">
     try {
         (function(w, d) {
             ! function(du, dv, dw, dx) {
@@ -106,7 +108,7 @@
     } catch (e) {
         throw fetch("/cdn-cgi/zaraz/t"), e;
     };
-    </script>
+    </script> -->
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -119,7 +121,7 @@
 
         <div class="content-wrapper" style="min-height: 301.4px;">
             <div class="content-header">
-                <div class="container-fluid">
+                <!-- <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0">Quản trị</h1>
@@ -131,62 +133,47 @@
                             </ol>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3 col-6">
-                            <div class="small-box bg-info">
-                                <div class="inner">
+                            <div class="small-box bg-info" style="height: 100px; padding: 10px; font-size: 12px;">
+                                <div class="inner" style="padding: 0px;text-align: center">
                                     <h3><?php echo $student_num; ?></h3>
                                     <p>Học sinh</p>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Chi tiết <i
-                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
-                            <div class="small-box bg-success">
-                                <div class="inner">
+                            <div class="small-box bg-success" style="height: 100px; padding: 10px; font-size: 12px;">
+                                <div class="inner" style="padding: 0px;text-align: center">
                                     <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> -->
                                     <h3><?php echo $teacher_num; ?></h3>
                                     <p>Giáo viên</p>
                                 </div>
-                                <div class="icon">
+                                <!-- <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
                                 <a href="#" class="small-box-footer">Chi tiết <i
-                                        class="fas fa-arrow-circle-right"></i></a>
+                                        class="fas fa-arrow-circle-right"></i></a> -->
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
-                            <div class="small-box bg-warning">
-                                <div class="inner">
+                            <div class="small-box bg-warning" style="height: 100px; padding: 10px; font-size: 12px;">
+                                <div class="inner" style="padding: 0px;text-align: center">
                                     <h3><?php echo $student_num; ?></h3>
                                     <p>Tài khoản học sinh</p>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-person-add"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Chi tiết <i
-                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
-                            <div class="small-box bg-danger">
-                                <div class="inner">
+                            <div class="small-box bg-danger" style="height: 100px; padding: 10px; font-size: 12px;">
+                                <div class="inner" style="padding: 0px;text-align: center">
                                     <h3><?php echo $teacher_num; ?></h3>
                                     <p>Tài khoản giáo viên</p>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
-                                </div>
-                                <a href="#" class="small-box-footer">Chi tiết <i
-                                        class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -287,5 +274,33 @@
     <script src="../js/demo.js"></script>
     <script src="../js/dashboard.js"></script>
 </body>
-
+<!-- data table -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 </html>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "sProcessing":   "Đang xử lý...",
+                "sLengthMenu":   "Xem _MENU_ mục",
+                "sZeroRecords":  "Không tìm thấy dữ liệu phù hợp",
+                "sInfo":         "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "sInfoEmpty":    "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoPostFix":  "",
+                "sSearch":       "Tìm kiếm:",
+                "sUrl":          "",
+                "oPaginate": {
+                    "sFirst":    "Đầu",
+                    "sPrevious": "Trước",
+                    "sNext":     "Tiếp",
+                    "sLast":     "Cuối"
+                }
+            },
+            "lengthMenu": [5, 10, 25, 50, 75, 100],
+            // "order": [[0, "asc"]]sap xep cot thu may
+        });
+    });
+</script>

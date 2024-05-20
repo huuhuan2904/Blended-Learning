@@ -74,10 +74,6 @@ $result = mysqli_query($conn,$query);
       }
     ?>
         <div class="input-field" style="text-align: right;">
-          <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm..." >
-          <button id="searchBtn" style="margin-right: 40px" class="btn btn-outline-primary" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Thêm học sinh</button>
         </div>
 
@@ -162,33 +158,26 @@ $result = mysqli_query($conn,$query);
 
 <!-- data table -->
       <div class="table_data">
-        <table style="text-align: center" class="table table-bordered">
+        <table style="text-align: center" class="table table-bordered" id="myTable">
+          <thead>
           <tr class="title_style" style="background-color: #007BFF; color: white">
-            <th> Họ và tên đệm </th>
-            <th> Tên </th>
-            <th> Ngày sinh </th>
-            <th> Giới tính </th>
-            <th> Địa chỉ </th>
-            <th> Số điện thoại </th>
-            <th> Dân tộc </th>
-            <th> Email </th>
-            <th> Sửa  </th>
-            <th> Xóa </th>
+            <th style="text-align: center"> Họ </th>
+            <th style="text-align: center"> Tên </th>
+            <th style="text-align: center"> Ngày sinh </th>
+            <th style="text-align: center"> Giới tính </th>
+            <th style="text-align: center" > Địa chỉ </th>
+            <th style="text-align: center"> Số điện thoại </th>
+            <th style="text-align: center"> Dân tộc </th>
+            <th style="text-align: center"> Email </th>
+            <th></th>
+            <th></th>
           </tr>
+          </thead>
+          <tbody>
             <?php 
-                $limit = 10; // Số bản ghi trên mỗi trang
-                $page = isset($_GET['pagination']) && is_numeric($_GET['pagination']) ? (int)$_GET['pagination'] : 1;
-                $page = max($page, 1); // Đảm bảo $page >= 1
-                $start = ($page - 1) * $limit;
-                
-                $result = $conn->query("SELECT COUNT(*) AS total FROM students");
-                $total_records = $result->fetch_assoc()['total'];
-                $total_pages = ceil($total_records / $limit);
-
                 $filter_data = "SELECT students.*, logins.* , students.id as students_id from students 
                                 join logins on students.login_id = logins.id
-                                ORDER BY students.first_name COLLATE utf8mb4_unicode_ci
-                                LIMIT $start, $limit";
+                                ORDER BY students.first_name COLLATE utf8mb4_unicode_ci";
                 $query_run = mysqli_query($conn,$filter_data);
 
                 if(mysqli_num_rows($query_run) > 0){
@@ -214,28 +203,10 @@ $result = mysqli_query($conn,$query);
                       </tr>
                     <?php
                   }
-                }else{
-                  ?>
-                     <tr>
-                       <td colspan="4">Không tìm thấy</td>
-                     </tr>
-                  <?php
                 }
-              ?>                                                              
+              ?>  
+        </tbody>                                                            
         </table>
-        <div class="pagination">
-          <?php if($page > 1): ?>
-              <a href="index.php?page=student_management&pagination=<?php echo $page-1; ?>">&laquo; Trước</a>
-          <?php endif; ?>
-
-          <?php for($i = 1; $i <= $total_pages; $i++): ?>
-              <a class="<?php if($page == $i) echo 'active'; ?>" href="index.php?page=student_management&pagination=<?php echo $i; ?>"><?php echo $i; ?></a>
-          <?php endfor; ?>
-
-          <?php if($page < $total_pages): ?>
-              <a href="index.php?page=student_management&pagination=<?php echo $page+1; ?>">Sau &raquo;</a>
-          <?php endif; ?>
-        </div>
       </div>
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -40,21 +40,18 @@ $class_query = mysqli_query($conn, "Select * from class");
 </head>
 
 <body>
-    <div style="text-align: right" class="input-field">
-        <input class="search" style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm...">
-        <button id="searchBtn" class="btn btn-outline-primary" type="submit">
-            <i class="fa fa-search"></i>
-        </button>
-    </div>
     <!-- data table -->
     <div class="table_data">
-        <table style="text-align: center" class="table table-bordered">
+        <table style="text-align: center" class="table table-bordered" id="myTable">
+            <thead>
             <tr class="title_style" style="background-color: #007BFF; color: white">
-                <th> Giáo viên </th>
-                <th> Lớp được phân công </th>
-                <th> Môn học </th>
-                <th> Lớp học </th>
+                <th style="text-align: center"> Giáo viên </th>
+                <th style="text-align: center"> Lớp được phân công </th>
+                <th style="text-align: center"> Môn học </th>
+                <th style="text-align: center"> Lớp học </th>
             </tr>
+            </thead>
+            <tbody>
             <?php 
                                     $filter_data = "SELECT t.id as teacher_id,
                                                             t.name as teacher_name,
@@ -96,15 +93,8 @@ $class_query = mysqli_query($conn, "Select * from class");
                 </td>
             </tr>
             <?php
-                                        }
-                                    }else{
-                                    ?>
-            <tr>
-                <td colspan="4">Không tìm thấy</td>
-            </tr>
-            <?php
-                                    }
-                                    ?>
+                } }?>
+        </tbody>
         </table>
     </div>
 
@@ -231,7 +221,7 @@ function deleteAssignment(teacherId) {
     });
 }
 </script>
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#searchBtn').click(function() {
         $.ajax({
@@ -246,6 +236,6 @@ $(document).ready(function() {
         })
     });
 });
-</script>
+</script> -->
 
 </html>
