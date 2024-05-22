@@ -2,8 +2,8 @@
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
 
 if(!empty($_GET['type']) && $_GET['type'] == 'list'){
-    $sql = "SELECT lesson_day.id, lesson_day.status, lessons.name as lesson_name, lessons.start_time, lessons.end_time, 
-                days_assignment.assignment_id, days_assignment.day, days_assignment.start_date, days_assignment.end_date
+    $sql = "SELECT lesson_day.id as lessonDay_id, lesson_day.status, lessons.name as lesson_name, lessons.start_time, lessons.end_time, 
+    days_assignment.id as daysAss_id, days_assignment.assignment_id, days_assignment.day, days_assignment.start_date, days_assignment.end_date
             FROM lesson_day
             join lessons on lesson_day.lesson_id = lessons.id
             join days_assignment on lesson_day.days_ass_id  = days_assignment.id";

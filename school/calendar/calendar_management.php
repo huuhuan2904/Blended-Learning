@@ -123,48 +123,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'timeGridWeek',
-    initialDate: '2024-04-08',
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay',
-    },
-  });
-
-  var startDate = '2024-04-08';
-  var endDate = '2024-04-15';
-  var startDateTime = '7:10:00';
-  var endDateTime = '7:55:00';
-
-  var currentDate = moment(startDate).startOf('day');
-  var endTime = moment(endDate).endOf('day');
-
-  function createEvent(startHour, startMinute, endHour, endMinute) {
-    var startDateTime = moment(currentDate).set({ 'hour': startHour, 'minute': startMinute });
-    var endDateTime = moment(currentDate).set({ 'hour': endHour, 'minute': endMinute });
-    calendar.addEvent({
-      title: 'Sự kiện',
-      start: startDateTime.format(),
-      end: endDateTime.format(),
-      url: 'https://google.com/'
-    });
-  }
-
-  while (currentDate <= endTime) {
-    if (currentDate.day() !== 0) {
-      createEvent(7, 10, 7, 55);
-    }
-    currentDate.add(1, 'days');
-  }
-
-  calendar.render(); 
-});
-</script> -->
 <script>
   function selectedClass(classId){
     $.ajax({
@@ -245,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var result = data;
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
+        initialView: 'dayGridMonth',
         locale: 'vi',
         initialDate: '<?=date('Y-m-d')?>',
         headerToolbar: {
@@ -284,6 +242,8 @@ document.addEventListener('DOMContentLoaded', function() {
               end_date: calEvent.event.extendedProps.end_date,
               start_time: calEvent.event.extendedProps.start_time,
               end_time: calEvent.event.extendedProps.end_time,
+              lessonDay_id: calEvent.event.extendedProps.lessonDay_id,
+              daysAss_id: calEvent.event.extendedProps.daysAss_id
             },
             success: function(result) {
               myModal = new bootstrap.Modal(document.getElementById('calendarDetails'));
@@ -338,41 +298,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 getEvent();
 </script>
-
-<!-- <script type="text/javascript">
-  function getEvent(){
-    var events = new Array();
-    $.ajax({
-      url: "calendar/get_calendar_data.php?type=list",
-      type: 'POST',
-      dataType: "json",
-      success: function(data) {
-        var result = data;
-        $.each(result, function(i, item){
-          events.push({
-            event_id: result[i].id,
-            title: result[i].class_name,
-            start: new Date(result[i].start_date + 'T' + result[i].start_time).toISOString(),
-            end: new Date(result[i].end_date + 'T' + result[i].end_time).toISOString()
-          });
-        });
-        
-        var calendarEl = document.getElementById('calendar');
-
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'timeGridWeek',
-          initialDate: '<?=date('Y-m-d')?>',
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay',
-          },
-          events: events
-        });
-        calendar.render(); 
-      }
-    });
-
-  }
-  getEvent()
-</script> -->

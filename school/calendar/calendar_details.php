@@ -13,7 +13,7 @@ if (isset($_POST['class_name'])) {
     }
     $output = '';
     $output .='
-        <div class="table_data">
+        <div class="table_data" style="padding: 20px">
             <table style="text-align: center" class="table table-bordered">
                 <tr class="title_style" style="background-color: '.$Color.'; color: white">
                     <th></th>
@@ -36,6 +36,13 @@ if (isset($_POST['class_name'])) {
                     <td colspan="5">'.$_POST['start_date'].' - '.$_POST['end_date'].'</td>
                 </tr>
             </table>
+            <div style="text-align: center">
+                <form action="calendar/delete_lesson.php" method="POST">
+                    <input type="hidden" name="lessonDayId" value='.$_POST['lessonDay_id'].'>
+                    <input type="hidden" name="daysAssId" value='.$_POST['daysAss_id'].'>
+                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Xóa tiết học</button>
+                </form>
+            </div>
         </div>';
     echo $output;
 }
