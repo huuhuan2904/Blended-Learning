@@ -160,7 +160,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="index.php?page=manage_online_classes" class="nav-link">
-                                        <i class="fa-regular fa-calendar-days"></i>
+                                        <i class="fa-solid fa-laptop"></i>
                                         <p>Lớp học trực tuyến
                                             <!-- <span class="badge badge-info right">2</span> -->
                                         </p>
