@@ -246,6 +246,14 @@
                                         echo 'Error: File not found';
                                     }
                                     break;
+                                case 'manage_online_classes':
+                                    $path = "online_class/".$_GET["page"].".php";
+                                    if (file_exists($path)) {
+                                        include($path);
+                                    } else {
+                                        echo 'Error: File not found';
+                                    }
+                                    break;
                                 default:
                                     echo 'Error: Invalid page';
                                     break;

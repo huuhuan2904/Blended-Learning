@@ -64,6 +64,7 @@
             <li><a href="#">Giới thiệu</a></li>
             <li><a href="index.php?page=timetable_page">Thời khóa biểu</a></li>
             <li><a href="index.php?page=homework_page">Bài tập</a></li>
+            <li><a href="index.php?page=online_class_page">Lớp trực tuyến</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" style="background-color:#009ACD">
                 <li class="dropdown">

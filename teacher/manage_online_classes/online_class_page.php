@@ -34,12 +34,12 @@
     <div class="container" style="max-width: 2140px;">
         <?php
             $class_results = [];
-            $class_ids = array();
+            $ass_ids = array();
             if ($Class_result->num_rows > 0) {
                 echo "<button class='btn btn-warning' style='margin-right: 10px;' onclick=\"location.href='index.php?page=online_class_page'\" type='button'>Tải lại  <i class=\"fa-solid fa-rotate-right\"></i></button>";
                 while($row = $Class_result->fetch_assoc()) {
                     $class_results[] = $row;
-                    $class_ids[] = $row['id'];
+                    $ass_ids[] = $row['id'];
                     echo "<button class='btn btn-primary' style='margin-right: 10px;' onclick='selectedClass(".$row['id'].");'>".$row['class_name']."  <i class=\"fa-solid fa-caret-down\"></i></button>";                
                 }
             }
@@ -48,7 +48,7 @@
         <div style='margin-top: 10px;'>
             <table style="text-align: center" class="table">
             <?php 
-                $class_ids_str = implode(',', $class_ids);
+                $ass_ids_str = implode(',', $ass_ids);
                 //nếu DATE đầu tiên là start_date trùng current date(case 1) hoặc k trùng và có ngày gần nhất với cur date thì sẽ lấy(case 2)
                 $Online_class_result = mysqli_query($conn,' SELECT *, online_class.id AS online_id, lessons.name AS lesson_name
                                                             FROM online_class
@@ -58,7 +58,7 @@
                                                             JOIN days ON days_assignment.day = days.id
                                                             JOIN assignment ON days_assignment.assignment_id = assignment.id
                                                             JOIN class ON assignment.class_id = class.id
-                                                            WHERE days_assignment.assignment_id IN ('.$class_ids_str.')
+                                                            WHERE days_assignment.assignment_id IN ('.$ass_ids_str.')
                                                             AND (
                                                                 DATE(days_assignment.start_date) = CURDATE()
                                                                 OR (
@@ -66,13 +66,13 @@
                                                                         SELECT 1
                                                                         FROM days_assignment
                                                                         WHERE DATE(start_date) = CURDATE()
-                                                                        AND assignment_id IN ('.$class_ids_str.')
+                                                                        AND assignment_id IN ('.$ass_ids_str.')
                                                                     )
                                                                     AND DATE(days_assignment.start_date) = (
                                                                         SELECT MIN(DATE(start_date))
                                                                         FROM days_assignment
                                                                         WHERE DATE(start_date) > CURDATE()
-                                                                        AND assignment_id IN ('.$class_ids_str.')
+                                                                        AND assignment_id IN ('.$ass_ids_str.')
                                                                     )
                                                                 )
                                                             )
@@ -132,18 +132,25 @@
                                 <td><a href="<?php echo $row2['link'] ?>" target="blank"><?php echo $row2['link'] ?></a></td>
                                 <td>
                                     <?php if (strtotime($row2['start_date']) < time() && date('Y-m-d', strtotime($row2['start_date'])) !== date('Y-m-d')): ?>
-                                        <div class="btn-group d-none">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                <i class="fa-solid fa-gear"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a><button type="button" class="dropdown-item" onclick="deleteOnlineClass(<?php echo $row2['online_id'] ?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                                            </div>
+                                        </div>
                                     <?php else: ?>
                                         <div class="btn-group">
-                                    <?php endif; ?>
-                                        <button type="button" class="btn btn-secondary dropdown-toggle-split" type="button" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-gear"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a><button type="button" class="dropdown-item" onclick="editOnlineClass(<?php echo $row2['online_id'] ?>,<?php echo $row2['lesson_day_id'] ?>)"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
-                                            <a><button type="button" class="dropdown-item" onclick="deleteOnlineClass(<?php echo $row2['online_id'] ?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                                            <button type="button" class="btn btn-secondary dropdown-toggle-split" data-bs-toggle="dropdown">
+                                                <i class="fa-solid fa-gear"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a><button type="button" class="dropdown-item" onclick="editOnlineClass(<?php echo $row2['online_id'] ?>,<?php echo $row2['lesson_day_id'] ?>)"><i class="fa-solid fa-pen-to-square"></i> Sửa</button></a>
+                                                <a><button type="button" class="dropdown-item" onclick="deleteOnlineClass(<?php echo $row2['online_id'] ?>)"><i class="fa-solid fa-trash"></i> Xóa</button></a>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             </tbody>

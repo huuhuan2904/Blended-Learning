@@ -159,6 +159,14 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="index.php?page=manage_online_classes" class="nav-link">
+                                        <i class="fa-regular fa-calendar-days"></i>
+                                        <p>Lớp học trực tuyến
+                                            <!-- <span class="badge badge-info right">2</span> -->
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="../authenticate/logout.php" class="nav-link">
                                         <i class="fa-solid fa-right-from-bracket"></i>
                                         <p>Đăng xuất
