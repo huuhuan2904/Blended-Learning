@@ -1,6 +1,11 @@
 <?php
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
 
+if (!isset($_POST['class']) || !isset($_POST['lesson']) || !isset($_POST['link'])) {
+    echo "<script>alert('Vui lòng chọn đầy đủ các thông tin'); window.history.back();</script>";
+    exit;
+}
+
 $Teacher_id = $_POST['teacher_id'];
 $Class_id = $_POST['class'];
 $Day_id = $_POST['day'];

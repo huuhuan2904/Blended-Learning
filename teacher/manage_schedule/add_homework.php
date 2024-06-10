@@ -1,6 +1,11 @@
 <?php
 $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
 
+if (!isset($_POST['type']) || !isset($_POST['title']) || !isset($_POST['content'])) {
+    echo "<script>alert('Vui lòng nhập đầy đủ các thông tin'); window.history.back();</script>";
+    exit;
+}
+
 if(isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
     $LessonDay_id = $_POST['lesson_day_id'];
     $Type = $_POST['type'];
@@ -27,7 +32,8 @@ if(isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
         echo "Error moving the file";
     }
 }else{
-    echo $_FILES['file']['error'];
+    echo "<script>alert('Vui lòng chọn file học liệu'); window.history.back();</script>";
+    exit;
 }
 
 

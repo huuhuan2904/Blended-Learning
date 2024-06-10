@@ -186,13 +186,12 @@ $(document).ready(function() {
 <script>
 function deleteAssignment(teacherId) {
     Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Bạn có chắc chắn muốn xóa?",
+        text: "Dữ liệu sẽ không được khôi phục",
         icon: "warning",
-        showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Xóa"
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
@@ -206,8 +205,8 @@ function deleteAssignment(teacherId) {
                     //sau khi success thì tự trả từ url trên về biến data
                     if (data == 1) {
                         Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
+                            title: "Xóa thành công",
+                            text: "Dữ liệu đã được xóa",
                             icon: "success"
                         }).then((result) => {
                             url = "./index.php?page=teaching_assignment";

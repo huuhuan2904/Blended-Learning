@@ -34,7 +34,7 @@ $conn = mysqli_connect("localhost","root","","final_project") or die($conn);
                     </div>
                 </div>
                     <div style="text-align: right" class="right-button">
-                        <button id="update" class="submit" type="button" style="float: right"><i class="fa-solid fa-check"></i></button>
+                        <button id="update" class="submit" type="button" style="float: right">Xác nhận</button>
                     </div>    
                 </div>
             </form>

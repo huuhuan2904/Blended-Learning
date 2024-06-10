@@ -62,7 +62,7 @@ if (isset($_POST['class_name'])) {
                         $output .=' <tr style="background-color: #E8E8E8;">
                                     <td>'.$row['type'].'</td>
                                     <td>'.$row['title'].'</td>
-                                    <td><a href="#"><button id="searchBtn" class="btn btn-outline-primary" type="submit">
+                                    <td><a href="index.php?page=homework_page"><button id="searchBtn" class="btn btn-outline-primary" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button></a></td>
                                 </tr>';

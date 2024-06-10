@@ -60,13 +60,8 @@ foreach($resultClassId as $row){
 </head>
 
 <body>
-        <form style="text-align: right;" method="POST" action="students.php?ClassId=<?php echo $Class_id ?>&TeacherId=<?php echo $Teacher_id ?>">
+        <form style="text-align: right; padding-bottom: 10px" method="POST" action="students.php?ClassId=<?php echo $Class_id ?>&TeacherId=<?php echo $Teacher_id ?>">
             <div class="input-field">
-                <input style="width: 20em;" name="search" type="text" placeholder="Tìm kiếm..."
-                    value="<?php if(isset($search)){echo $search;}?>">
-                <button style="margin-right: 40px" class="btn btn-outline-primary" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addStudentModal"><i class="fa-solid fa-user-plus"></i></button>
             </div>
         </form>
@@ -169,7 +164,8 @@ foreach($resultClassId as $row){
         </div>
 
         <!-- data table -->
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="myTable">
+                    <thead>
                     <tr class="title_style" style="background-color: #007BFF; color: white">
                         <th> Họ và tên đệm </th>
                         <th> Tên </th>
@@ -181,6 +177,8 @@ foreach($resultClassId as $row){
                         <th> Email </th>
                         <th> Xóa </th>
                     </tr>
+                    </thead>
+                        <tbody>
                         <?php 
                         if(isset($_POST['search']) && $_POST['search'] != ''){
                             $search = $_POST['search'];
@@ -225,7 +223,8 @@ foreach($resultClassId as $row){
                                 </tr>
                             <?php
                             }
-                        ?>                                                              
+                        ?>
+                        </tbody>                                                              
                     </table>
                     <div style="text-align: right">
                         <button  id="submit" class="submit" style="color: #265df2;background-color: white;border-style: solid;border-color: #265df2;" 
@@ -244,13 +243,12 @@ foreach($resultClassId as $row){
   function deleteStudent(studentId){
     Swal.fire(
       {
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        title: "Bạn có chắc chắn muốn xóa?",
+        text: "Dữ liệu sẽ không được khôi phục",
         icon: "warning",
-        showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonText: "Xóa"
       }).then((result) => {
         if(result.isConfirmed){
             $.ajax({
@@ -266,8 +264,8 @@ foreach($resultClassId as $row){
                 //sau khi success thì tự trả từ url trên về biến data
                 if (JSON.parse(data).data == 1) {
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    title: "Xóa thành công",
+                    text: "Dữ liệu đã được xóa",
                     icon: "success"
                     });
                     url = "index.php?page=students&ClassId="+JSON.parse(data).class_id+"&TeacherId="+JSON.parse(data).teacher_id;

@@ -92,7 +92,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="calendarDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="calendarDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div style="max-width: 800px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -110,6 +110,34 @@
             </div>
         </div>
 
+  <div class="modal fade" id="timetableDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div style="max-width: 800px; width: 90%;" class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="myModalLabel">Chi tiết lịch</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <!-- modal body -->
+              <div class="timetable-modal-body">
+                <div class="input-field" style="padding: 20px">
+                  <label>Lớp học</label>
+                    <select name="classes" id="classes" onchange="timetableDetails(value);" required>
+                        <option disabled selected>Chọn lớp học</option>
+                            <?php
+                              foreach($Classes as $class_row) {?> 
+                                <option value=<?php echo $class_row['id']?>>
+                                  <?php echo $class_row['class_name']?></option>
+                              <?php
+                              }
+                            ?>
+                    </select>
+                </div>
+                <div class="input-field"><div class="timetableDetails"></div></div>
+              </div>
+          </div>
+      </div>
+  </div>
+        
 <div id='calendar'></div>
 <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
   <script>
@@ -169,6 +197,35 @@
 }
 </script>
 <script>
+  function timetableDetails(classId){
+    $.ajax({
+      url: "calendar/timetable_details.php",
+      method: 'post',
+      data: {
+          class_id: classId
+      },
+      success: function(result) {
+        var jsonData = JSON.parse(result);
+        showTableDetais(jsonData);
+      }
+    })
+}
+</script>
+<script>
+  function showTableDetais(data) {
+  $.ajax({
+    url: "calendar/display_timetable_details.php",
+    method: 'post',
+    data: {
+        json_data: JSON.stringify(data)
+    },
+    success: function(response) {
+      $(".timetableDetails").html(response);
+    },
+  });
+}
+</script>
+<script>
   $('#submit').on('click', function(){
     var array = {
       'assignmentId': $('input[name="checkbox"]:checked').val(),
@@ -203,11 +260,20 @@
       var result = data;
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
+        customButtons: {
+          timetableDetails: {
+            text: 'Thời khóa biểu',
+            click: function() {
+                myModal = new bootstrap.Modal(document.getElementById('timetableDetails'));
+                myModal.show();
+            }
+          },
+        },
         initialView: 'dayGridMonth',
         locale: 'vi',
         initialDate: '<?=date('Y-m-d')?>',
         headerToolbar: {
-          left: 'prev,next today',
+          left: 'prev,next timetableDetails today',
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay',
         },
